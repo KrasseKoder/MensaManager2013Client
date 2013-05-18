@@ -1,4 +1,4 @@
-package com.github.krassekoder.mm13server;
+package com.github.krassekoder.mm13client;
 
 import com.trolltech.qt.gui.QAction;
 import com.trolltech.qt.gui.QApplication;

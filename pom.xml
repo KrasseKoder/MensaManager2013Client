@@ -90,7 +90,7 @@
               <archive>
                 <manifest>
                   <addClasspath>true</addClasspath>
-                  <mainClass>com.github.krassekoder.MainWindow</mainClass>
+                  <mainClass>com.github.krassekoder.mm13client.MainWindow</mainClass>
                 </manifest>
               </archive>
             </configuration>
