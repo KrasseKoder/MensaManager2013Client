@@ -3,12 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>com.github.krassekoder</groupId>
-  <artifactId>MensaManager2013Client</artifactId>
+  <artifactId>mm13client</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>MensaManager2013Client</name>
-  <url>http://maven.apache.org</url>
+  <url>http://github.com/KrasseKoder/MensaManager2013Client</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
