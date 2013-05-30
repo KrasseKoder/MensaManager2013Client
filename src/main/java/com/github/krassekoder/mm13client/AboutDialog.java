@@ -39,13 +39,11 @@ public final class AboutDialog extends QDialog {
     }
 
     private String generateHtml() {
-        return "<html><h2>MensaManager 2013</h2><h3>"
-                + tr("Version %1").replace("%1", QApplication.applicationVersion())
-                + "</h3><p>" + tr("Developed by %1").replace("%1", QApplication.organizationName())
-                + "</p><p>" + tr("Using QtJambi version %1").replace("%1", QtInfo.versionString())
-                + "</p><p><a href=\"1\">" + tr("About Qt")
-                + "</a>, <a href=\"2\">" + tr("About QtJambi")
-                + "</a></p></html>";
+        return String.format("<html><h2>%1$s</h2><h3>%2$s</h3><p>%3$s</p><p>%4$s</p><p><a href=\"1\">%5$s</a>, <a href=\"2\">%6$s</a></p></html>",
+                "MensaManager 2013", String.format(tr("Version %1$s"), QApplication.applicationVersion()),
+                String.format("Developed by %1$s", QApplication.organizationName()),
+                String.format("Using QtJambi version  %1$s", QtInfo.versionString()),
+                tr("About Qt"), tr("About QtJambi"));
     }
 
     private void link(String s) {
