@@ -22,7 +22,7 @@ public final class AboutDialog extends QDialog {
     }
 
     private void setupUi() {
-        setWindowTitle(tr("About %1").replace("%1", "MensaManager 2013"));
+        setWindowTitle(tr("About %1").replace("%1", QApplication.applicationName()));
 
         vL = new QVBoxLayout(this);
         vL.addLayout(hL1 = new QHBoxLayout());
@@ -40,8 +40,8 @@ public final class AboutDialog extends QDialog {
 
     private String generateHtml() {
         return "<html><h2>MensaManager 2013</h2><h3>"
-                + tr("Version %1").replace("%1", "Dev")
-                + "</h3><p>" + tr("Developed by %1").replace("%1", "KrasseKoder")
+                + tr("Version %1").replace("%1", QApplication.applicationVersion())
+                + "</h3><p>" + tr("Developed by %1").replace("%1", QApplication.organizationName())
                 + "</p><p>" + tr("Using QtJambi version %1").replace("%1", QtInfo.versionString())
                 + "</p><p><a href=\"1\">" + tr("About Qt")
                 + "</a>, <a href=\"2\">" + tr("About QtJambi")
