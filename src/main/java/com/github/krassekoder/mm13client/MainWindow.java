@@ -11,11 +11,13 @@ import com.trolltech.qt.gui.QTabWidget;
 public final class MainWindow extends QMainWindow {
 
     private QMenuBar menu;
-    private QMenu helpMenu;
+    private QMenu toolsMenu, helpMenu;
+    private QAction loginAction;
     private QAction aboutAction;
     private QStatusBar status;
     private QTabWidget tabs;
     private AboutDialog about;
+    private LoginDialog login;
 
     public MainWindow() {
         super();
@@ -39,8 +41,19 @@ public final class MainWindow extends QMainWindow {
         about.show();
     }
 
+    private void openLoginDialog() {
+        if (login == null) {
+            login = new LoginDialog(this);
+        }
+        login.exec();
+    }
+
     private void setupMenus() {
         setMenuBar(menu = new QMenuBar(this));
+
+        menu.addMenu(toolsMenu = new QMenu(tr("&Tools"), menu));
+        toolsMenu.addAction(loginAction = new QAction(tr("&Login..."), toolsMenu));
+        loginAction.triggered.connect(this, "openLoginDialog()");
 
         menu.addMenu(helpMenu = new QMenu(tr("&Help"), menu));
         helpMenu.addAction(aboutAction = new QAction(tr("&About..."), helpMenu));
@@ -55,7 +68,7 @@ public final class MainWindow extends QMainWindow {
         QApplication.setApplicationVersion("Pre-Alpha");
         QApplication.setOrganizationName("KrasseKoder");
         QApplication.setOrganizationDomain("http://www.github.com/KrasseKoder/");
-        
+
         w.show();
         QApplication.exec();
     }
