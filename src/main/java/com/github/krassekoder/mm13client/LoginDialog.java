@@ -52,6 +52,8 @@ public class LoginDialog extends QDialog{
         hLa1.addWidget(portLabel = new QLabel("P&ort:", server));
         hLa1.addWidget(port = new QSpinBox(server));
         portLabel.setBuddy(port);
+        port.setMaximum(9999);
+        port.setValue(1996);
         //button panel
         vLa1.addLayout(hLa2 = new QHBoxLayout(this));
         hLa2.addWidget(atStart = new QCheckBox(tr("Show this dialog at start"), this));
