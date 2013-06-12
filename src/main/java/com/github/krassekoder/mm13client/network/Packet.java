@@ -10,6 +10,7 @@ public abstract class Packet {
     public static class TimeoutException extends Exception {}
 
     private static Packet[] packets = new Packet[128];
+    private static QTcpSocket socket;
 
     public Packet() {
         packets[id()] = this;
@@ -20,16 +21,21 @@ public abstract class Packet {
         return packets[id];
     }
 
-    public abstract QByteArray sendData();
-    public abstract void receiveData(QTcpSocket socket) throws TimeoutException;
-
-    public void send(QTcpSocket socket) {
-        QByteArray packet = sendData();
-        packet.prepend(id());
-        socket.write(packet);
+    protected void sendData(QByteArray data) {
+        QByteArray out = new QByteArray();
+        out.append(id());
+        out.append(data);
+        socket.write(out);
     }
+    protected abstract void receiveData(QTcpSocket socket) throws InvalidPacketException, TimeoutException;
 
-    public static void receive(QTcpSocket socket) throws InvalidPacketException, TimeoutException {
+
+    public static void init(QTcpSocket socket) {
+        Packet.socket = socket;
+        //initialize packets here
+        new Packet0Login();
+    }
+    public static void receive() throws InvalidPacketException, TimeoutException {
         QByteArray id = socket.read(1);
         Packet packet = getById(id.at(0));
         if(packet == null)
