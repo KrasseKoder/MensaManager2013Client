@@ -31,6 +31,7 @@ public class LoginDialog extends QDialog{
     }
 
     private void setupUi() {
+        setWindowTitle(tr("Login"));
         setLayout(vLa1 = new QVBoxLayout(this));
         vLa1.addLayout(loginLayout = new QFormLayout(this));
         //username edit
