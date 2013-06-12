@@ -22,7 +22,7 @@ public final class AboutDialog extends QDialog {
     }
 
     private void setupUi() {
-        setWindowTitle(tr("About %1").replace("%1", QApplication.applicationName()));
+        setWindowTitle(tr("About MensaManager"));
 
         vL = new QVBoxLayout(this);
         vL.addLayout(hL1 = new QHBoxLayout());
