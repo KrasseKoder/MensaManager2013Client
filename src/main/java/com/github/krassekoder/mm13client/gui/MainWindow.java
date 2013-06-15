@@ -1,9 +1,6 @@
 package com.github.krassekoder.mm13client.gui;
 
-import com.github.krassekoder.mm13client.gui.AboutDialog;
-import com.github.krassekoder.mm13client.gui.LoginDialog;
 import com.trolltech.qt.gui.QAction;
-import com.trolltech.qt.gui.QApplication;
 import com.trolltech.qt.gui.QMainWindow;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
