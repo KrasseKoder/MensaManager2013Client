@@ -1,4 +1,4 @@
-package com.github.krassekoder.mm13client;
+package com.github.krassekoder.mm13client.network;
 
 import com.trolltech.qt.core.QByteArray;
 import com.trolltech.qt.network.QHostAddress;
