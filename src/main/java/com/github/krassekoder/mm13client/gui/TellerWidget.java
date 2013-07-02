@@ -7,6 +7,7 @@ import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableView;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+
 public class TellerWidget extends QWidget{
 
  private QTableView price;
@@ -30,7 +31,7 @@ public class TellerWidget extends QWidget{
      setupUi();
  }
  
- private void setupUi() {
+ private void setupUi() {  //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
      setLayout(qv1=new QVBoxLayout());
      qv1.addLayout(qh1 = new QHBoxLayout());
      qh1.addLayout(qv2 = new QVBoxLayout());

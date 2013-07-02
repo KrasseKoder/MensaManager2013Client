@@ -8,6 +8,11 @@ import com.trolltech.qt.gui.QTextBrowser;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
+/**
+ * The "PayWidget" offers various non-cash payment options and also conventional 
+ * cash payment. It is possible to enter the amount of money recieved and there 
+ * is a button 'Pay' as well as a button 'Pay and Print'.
+ */
 public class PayWidget extends QWidget {
     
     private QTextBrowser view;
@@ -23,7 +28,7 @@ public class PayWidget extends QWidget {
         setupUi();
     }
     
-     private void setupUi()  {   //This function sets up the User Interface including Layouts, Forms, Buttons, etc.
+     private void setupUi()  {   //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
         setLayout(vLa1= new QVBoxLayout());
         vLa1.addWidget(view= new QTextBrowser(this));
         vLa1.addLayout(hLa1= new QHBoxLayout(this));

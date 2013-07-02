@@ -20,15 +20,19 @@ public final class MainWindow extends QMainWindow {
     private PayWidget pay;
     private TellerWidget teller;
 
+    /**
+     * The "MainWindow" is the first window seen by the user and refers to all
+     * other menus and widgets including the 'menubar' and the 'tabbar'.
+     */
     public MainWindow() {
         super();
         setupUi();
     }
 
-    private void setupUi() {
+    private void setupUi() { // This method sets up the User Interface of the main window including menu bar and tabs.
         setWindowTitle("MensaManager 2013");
 
-        setupMenus();
+        setupMenus(); //sets up the menu bar as descripted below.
         setStatusBar(status = new QStatusBar(this));
         setCentralWidget(tabs = new QTabWidget(this));
         tabs.addTab(new PayWidget(tabs),tr("Pay"));
@@ -50,7 +54,7 @@ public final class MainWindow extends QMainWindow {
         login.exec();
     }
 
-    private void setupMenus() {
+    private void setupMenus() { //This function sets up the menus 'Tools' and 'Help' as a menu bar on the upper side of the window
         setMenuBar(menu = new QMenuBar(this));
 
         menu.addMenu(toolsMenu = new QMenu(tr("&Tools"), menu));

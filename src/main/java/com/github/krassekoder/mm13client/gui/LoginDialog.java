@@ -23,14 +23,19 @@ public class LoginDialog extends QDialog{
     private QBoxLayout vLa1, hLa1, hLa2;
     private QCheckBox atStart;
     private QPushButton login;
-
+    
+    /**
+     * The "LoginDialog" offers the possibility to log in to the server and to
+     * open a Server-Client connection.
+     * 
+     */
     public LoginDialog(QWidget qw) {
         super(qw);
 
         setupUi();
     }
 
-    private void setupUi() {
+    private void setupUi() { // This method sets up the User Interface of the "LoginDialog" including 'Spinbox' and 'Checkbox'.
         setWindowTitle(tr("Login"));
         setLayout(vLa1 = new QVBoxLayout(this));
         vLa1.addLayout(loginLayout = new QFormLayout(this));
