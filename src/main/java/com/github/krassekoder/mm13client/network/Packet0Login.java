@@ -1,16 +1,10 @@
 package com.github.krassekoder.mm13client.network;
 
 import com.trolltech.qt.core.QByteArray;
+import com.trolltech.qt.core.QDataStream;
 import com.trolltech.qt.network.QTcpSocket;
 
 public class Packet0Login extends Packet{
-
-    private static Packet0Login instance;
-
-    public Packet0Login() {
-        instance = this;
-    }
-
     @Override
     public byte id() {
         return 0;
@@ -18,10 +12,15 @@ public class Packet0Login extends Packet{
 
     public static boolean login(String username, String password) {
         QByteArray data = new QByteArray();
-        data.append(QByteArray.number(username.length()));
-        data.append(username);
-        data.append(QByteArray.number(password.length()));
-        data.append(password);
+        QByteArray uname = new QByteArray(username),
+                pwd = new QByteArray(password);
+
+        QDataStream s = new QDataStream(data);
+        s.writeInt(uname.length());
+        s.writeInt(pwd.length());
+
+        data.append(uname);
+        data.append(pwd);
         return false;
     }
 
