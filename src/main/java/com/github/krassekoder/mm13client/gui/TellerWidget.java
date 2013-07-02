@@ -19,7 +19,11 @@ public class TellerWidget extends QWidget{
  private QWidget qw;
  private QLabel pLabel;
  
- 
+ /**
+  * The TellerWidget is used to give up the order.
+  * It shows what the order contains and how much it costs. 
+  * This Widget contains a button to place the order and pay it.  
+  */
  public TellerWidget(QWidget qw)
  {
      super(qw);
