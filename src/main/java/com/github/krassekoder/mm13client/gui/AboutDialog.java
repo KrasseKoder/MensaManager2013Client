@@ -9,6 +9,11 @@ import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
+/**
+ * The "AboutDialog" is integrated in the help-menu and shows some minor 
+ * information about the developers, Qt, and Qt Jambi.
+ * It also indicates the build state... Currently Pre-Alpha.
+ */
 public final class AboutDialog extends QDialog {
 
     private QLabel logo, text;
@@ -31,7 +36,6 @@ public final class AboutDialog extends QDialog {
         hL1.addWidget(logo = new QLabel());
         hL1.addWidget(text = new QLabel(generateHtml()));
         text.linkActivated.connect(this, "link(String)");
-
         hL2.addStretch();
         hL2.addWidget(close = new QPushButton(tr("Close"), this));
 
