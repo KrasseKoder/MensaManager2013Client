@@ -1,4 +1,4 @@
-package com.github.krassekoder.mm13client;
+package com.github.krassekoder.mm13client.gui;
 
 import com.trolltech.qt.QtInfo;
 import com.trolltech.qt.gui.QApplication;
@@ -22,7 +22,7 @@ public final class AboutDialog extends QDialog {
     }
 
     private void setupUi() {
-        setWindowTitle(tr("About %1").replace("%1", QApplication.applicationName()));
+        setWindowTitle(tr("About MensaManager"));
 
         vL = new QVBoxLayout(this);
         vL.addLayout(hL1 = new QHBoxLayout());

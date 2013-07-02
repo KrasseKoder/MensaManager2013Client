@@ -2,13 +2,14 @@ package com.github.krassekoder.mm13client.network;
 
 import com.trolltech.qt.core.QByteArray;
 import com.trolltech.qt.network.QTcpSocket;
-import javax.naming.TimeLimitExceededException;
 
 public class Packet0Login extends Packet{
 
     private static Packet0Login instance;
-    private String username, password;
-    private boolean success;
+
+    public Packet0Login() {
+        instance = this;
+    }
 
     @Override
     public byte id() {
@@ -16,23 +17,17 @@ public class Packet0Login extends Packet{
     }
 
     public static boolean login(String username, String password) {
-
+        QByteArray data = new QByteArray();
+        data.append(QByteArray.number(username.length()));
+        data.append(username);
+        data.append(QByteArray.number(password.length()));
+        data.append(password);
         return false;
     }
 
     @Override
-    public QByteArray sendData() {
-        QByteArray result = new QByteArray();
-        return result;
-    }
-
-    @Override
-    public void receiveData(QTcpSocket socket) throws TimeoutException{
-        while(socket.bytesAvailable() < 2)
-            if(!socket.waitForReadyRead(10000))
-                throw new TimeoutException();
-        QByteArray hash = socket.read(2);
-        success = hash.toInt() == username.hashCode();
+    public void receiveData(QTcpSocket socket) throws InvalidPacketException {
+        throw new InvalidPacketException();
     }
 
 }

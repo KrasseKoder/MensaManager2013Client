@@ -1,7 +1,6 @@
-package com.github.krassekoder.mm13client;
+package com.github.krassekoder.mm13client.gui;
 
 import com.trolltech.qt.gui.QAction;
-import com.trolltech.qt.gui.QApplication;
 import com.trolltech.qt.gui.QMainWindow;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
@@ -18,6 +17,7 @@ public final class MainWindow extends QMainWindow {
     private QTabWidget tabs;
     private AboutDialog about;
     private LoginDialog login;
+    private PayWidget pay;
 
     public MainWindow() {
         super();
@@ -29,8 +29,8 @@ public final class MainWindow extends QMainWindow {
 
         setupMenus();
         setStatusBar(status = new QStatusBar(this));
-
         setCentralWidget(tabs = new QTabWidget(this));
+        tabs.addTab(new PayWidget(tabs),tr("Pay"));
 
     }
 
@@ -58,27 +58,5 @@ public final class MainWindow extends QMainWindow {
         menu.addMenu(helpMenu = new QMenu(tr("&Help"), menu));
         helpMenu.addAction(aboutAction = new QAction(tr("&About..."), helpMenu));
         aboutAction.triggered.connect(this, "openAbout()");
-    }
-
-    public static void main(String[] args) {
-        QApplication a = new QApplication(args);
-        MainWindow w = new MainWindow();
-
-        QApplication.setApplicationName("MensaManager2013Client");
-        QApplication.setApplicationVersion("Pre-Alpha");
-        QApplication.setOrganizationName("KrasseKoder");
-        QApplication.setOrganizationDomain("http://www.github.com/KrasseKoder/");
-
-        /*byte b1 = (byte)(1000 & 255);
-        byte b2 = (byte)((1000 & -256) >> 8);
-
-        int res = (int)(b1 & 255) | ((int)b2 << 8);
-
-        System.out.println(b1);
-        System.out.println(b2);
-        System.out.println(res);*/
-
-        w.show();
-        QApplication.exec();
     }
 }
