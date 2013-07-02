@@ -18,6 +18,7 @@ public final class MainWindow extends QMainWindow {
     private AboutDialog about;
     private LoginDialog login;
     private PayWidget pay;
+    private TellerWidget teller;
 
     public MainWindow() {
         super();
@@ -31,6 +32,7 @@ public final class MainWindow extends QMainWindow {
         setStatusBar(status = new QStatusBar(this));
         setCentralWidget(tabs = new QTabWidget(this));
         tabs.addTab(new PayWidget(tabs),tr("Pay"));
+        tabs.addTab(new TellerWidget(tabs),tr("Teller"));
 
     }
 
