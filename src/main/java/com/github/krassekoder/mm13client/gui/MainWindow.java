@@ -37,6 +37,7 @@ public final class MainWindow extends QMainWindow {
         setCentralWidget(tabs = new QTabWidget(this));
         tabs.addTab(new PayWidget(tabs),tr("Pay"));
         tabs.addTab(new TellerWidget(tabs),tr("Teller"));
+        tabs.addTab(new DataWidget(tabs), tr("Data"));
 
     }
 
