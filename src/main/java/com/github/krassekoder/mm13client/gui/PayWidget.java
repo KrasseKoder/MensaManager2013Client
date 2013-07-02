@@ -18,13 +18,12 @@ public class PayWidget extends QWidget {
     private QVBoxLayout vLa1;
     private QLabel mLabel;
     
-
     public PayWidget(QWidget qw) {
         super(qw);
         setupUi();
     }
     
-    private void setupUi() {
+     private void setupUi()  {   //This function sets up the User Interface including Layouts, Forms, Buttons, etc.
         setLayout(vLa1= new QVBoxLayout());
         vLa1.addWidget(view= new QTextBrowser(this));
         vLa1.addLayout(hLa1= new QHBoxLayout(this));
@@ -34,8 +33,5 @@ public class PayWidget extends QWidget {
         vLa1.addLayout(hLa2= new QHBoxLayout(this));
         hLa2.addWidget(print= new QPushButton(tr("P&rint && Pay"),this));
         hLa2.addWidget(pay= new QPushButton(tr("&Pay"),this));
-    }
-
-    
-    
+    }  
 }
