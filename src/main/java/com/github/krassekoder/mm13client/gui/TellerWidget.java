@@ -36,7 +36,7 @@ public class TellerWidget extends QWidget{
      qv1.addLayout(qh1 = new QHBoxLayout());
      qh1.addLayout(qv2 = new QVBoxLayout());
      qv2.addLayout(qh2 = new QHBoxLayout());
-     qh2.addWidget(ql2 = new QLabel(tr("Id:"), this));
+     qh2.addWidget(ql2 = new QLabel(tr("Product:"), this));
      qh2.addWidget(product = new QLineEdit(this));
      qv1.addWidget(pay = new QPushButton(tr("&Continue to Pay..."),this));
      qh1.addWidget(qlv = new QListView());
