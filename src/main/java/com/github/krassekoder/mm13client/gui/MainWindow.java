@@ -20,6 +20,7 @@ public final class MainWindow extends QMainWindow {
     private LoginDialog login;
     private PayWidget pay;
     private TellerWidget teller;
+    private AdminWidget admin;
 
     /**
      * The "MainWindow" is the first window seen by the user and refers to all
@@ -30,8 +31,8 @@ public final class MainWindow extends QMainWindow {
         instance = this;
         setupUi();
     }
-
-    private void setupUi() { // This method sets up the User Interface of the main window including menu bar and tabs.
+    // This method sets up the User Interface of the main window including menu bar and tabs.
+    private void setupUi() { 
         setWindowTitle("MensaManager 2013");
 
         setupMenus(); //sets up the menu bar as descripted below.
@@ -41,6 +42,7 @@ public final class MainWindow extends QMainWindow {
         tabs.addTab(new DataWidget(tabs), tr("Data"));
         pay = new PayWidget(tabs);
         pay.hide();
+        tabs.addTab(admin = new AdminWidget(tabs),tr("Admin"));
     }
     
     public void ChangeToPay()

@@ -27,8 +27,8 @@ public class PayWidget extends QWidget {
         super(qw);
         setupUi();
     }
-    
-     private void setupUi()  {   //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
+    //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
+     private void setupUi()  {   
         setLayout(vLa1= new QVBoxLayout());
         vLa1.addWidget(view= new QTextBrowser(this));
         vLa1.addLayout(hLa1= new QHBoxLayout(this));

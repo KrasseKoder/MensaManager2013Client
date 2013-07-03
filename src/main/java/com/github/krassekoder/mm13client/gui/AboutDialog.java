@@ -25,8 +25,8 @@ public final class AboutDialog extends QDialog {
         super(qw);
         setupUi();
     }
-
-    private void setupUi() { //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
+    //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
+    private void setupUi() { 
         setWindowTitle(tr("About MensaManager"));
 
         vL = new QVBoxLayout(this);

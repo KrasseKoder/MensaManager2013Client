@@ -1,6 +1,5 @@
 package com.github.krassekoder.mm13client.gui;
 import com.trolltech.qt.gui.QHBoxLayout;
-import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QListView;
@@ -30,8 +29,8 @@ public class TellerWidget extends QWidget{
      super(qw);
      setupUi();
  }
- 
- private void setupUi() {  //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
+ //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
+ private void setupUi() {  
      setLayout(qv1=new QVBoxLayout());
      qv1.addLayout(qh1 = new QHBoxLayout());
      qh1.addLayout(qv2 = new QVBoxLayout());
