@@ -1,5 +1,6 @@
 package com.github.krassekoder.mm13client.gui;
 import com.trolltech.qt.gui.QHBoxLayout;
+import com.trolltech.qt.gui.QKeyEvent;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QListView;
@@ -9,7 +10,6 @@ import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
 public class TellerWidget extends QWidget{
-
  private QTableView price;
  private QListView qlv;
  private QLineEdit product;
@@ -46,10 +46,13 @@ public class TellerWidget extends QWidget{
      qh3.addStretch();
      qh3.addWidget(pLabel = new QLabel(tr("0.00$")));
      
- }
- 
+     pay.clicked.connect(this,"GoToPay()");
+}
     
-    
+private void GoToPay()
+{
+    MainWindow.instance.ChangeToPay();
+}
     
     
     

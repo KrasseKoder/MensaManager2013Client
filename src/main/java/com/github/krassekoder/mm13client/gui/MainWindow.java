@@ -8,7 +8,8 @@ import com.trolltech.qt.gui.QStatusBar;
 import com.trolltech.qt.gui.QTabWidget;
 
 public final class MainWindow extends QMainWindow {
-
+    public static MainWindow instance;
+    
     private QMenuBar menu;
     private QMenu toolsMenu, helpMenu;
     private QAction loginAction;
@@ -26,6 +27,7 @@ public final class MainWindow extends QMainWindow {
      */
     public MainWindow() {
         super();
+        instance = this;
         setupUi();
     }
 
@@ -35,12 +37,26 @@ public final class MainWindow extends QMainWindow {
         setupMenus(); //sets up the menu bar as descripted below.
         setStatusBar(status = new QStatusBar(this));
         setCentralWidget(tabs = new QTabWidget(this));
-        tabs.addTab(new PayWidget(tabs),tr("Pay"));
-        tabs.addTab(new TellerWidget(tabs),tr("Teller"));
+        tabs.addTab(teller = new TellerWidget(tabs),tr("Teller"));
         tabs.addTab(new DataWidget(tabs), tr("Data"));
-
+        pay = new PayWidget(tabs);
+        pay.hide();
     }
-
+    
+    public void ChangeToPay()
+    {
+        tabs.insertTab(0, pay, tr("Pay"));
+        tabs.setCurrentIndex(0);
+        tabs.removeTab(1);
+    }
+    
+    public void ChangeToTeller()
+    {
+       tabs.insertTab(0, teller, tr("Teller"));
+        tabs.setCurrentIndex(0);
+        tabs.removeTab(1);
+    }
+    
     private void openAbout() {
         if (about == null) {
             about = new AboutDialog(this);

@@ -38,5 +38,13 @@ public class PayWidget extends QWidget {
         vLa1.addLayout(hLa2= new QHBoxLayout(this));
         hLa2.addWidget(print= new QPushButton(tr("P&rint && Pay"),this));
         hLa2.addWidget(pay= new QPushButton(tr("&Pay"),this));
+        
+        print.clicked.connect(this,"GoToTeller()");
+        pay.clicked.connect(this,"GoToTeller()");
     }  
+     
+     private void GoToTeller()
+{
+    MainWindow.instance.ChangeToTeller();
+}
 }
