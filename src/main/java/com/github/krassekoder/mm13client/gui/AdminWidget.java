@@ -9,9 +9,10 @@ import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
-/**The AdminWidget allows you to add new Users an
+/**
+ * The AdminWidget allows you to add new users and
  * products easily by writing the information into
- * the lines and confirming it by pressing "Enter"
+ * the lines and confirming it by pressing "Enter".
  */
 public class AdminWidget extends QWidget
 {
@@ -30,6 +31,10 @@ public class AdminWidget extends QWidget
      setupUi();
  }
     
+    /** 
+     * This method sets up the User Interface of "AdminWidget" including 
+     * 'QGroupBox' and 'QPushButton'.
+     */
   private void setupUi(){
      
      setLayout(qv1=new QVBoxLayout());

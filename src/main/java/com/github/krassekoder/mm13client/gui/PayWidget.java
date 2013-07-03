@@ -27,7 +27,10 @@ public class PayWidget extends QWidget {
         super(qw);
         setupUi();
     }
-    //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
+    /**
+     * This method sets up the User Interface including Layouts, Forms, 
+     * Buttons, etc.
+     */
      private void setupUi()  {   
         setLayout(vLa1= new QVBoxLayout());
         vLa1.addWidget(view= new QTextBrowser(this));
@@ -43,8 +46,14 @@ public class PayWidget extends QWidget {
         pay.clicked.connect(this,"GoToTeller()");
     }  
      
+     /**
+      * This method calls 'ChangeToTeller()' in mm13client.gui.MainWindow in 
+      * order to change from the Pay-tab to the Teller-tab when 'Pay' or 'Print' 
+      * is pressed.
+      */
      private void GoToTeller()
-{
-    MainWindow.instance.ChangeToTeller();
-}
+    {
+        MainWindow.instance.ChangeToTeller();
+    }
+     
 }

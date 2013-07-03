@@ -72,8 +72,11 @@ public final class MainWindow extends QMainWindow {
         }
         login.exec();
     }
-
-    private void setupMenus() { //This function sets up the menus 'Tools' and 'Help' as a menu bar on the upper side of the window
+/**
+ *  This method sets up the menus 'Tools' and 'Help' as a menu bar on the 
+ *  upper side of the window.
+ */
+    private void setupMenus() { 
         setMenuBar(menu = new QMenuBar(this));
 
         menu.addMenu(toolsMenu = new QMenu(tr("&Tools"), menu));

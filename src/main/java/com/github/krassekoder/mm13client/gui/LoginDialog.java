@@ -34,7 +34,10 @@ public class LoginDialog extends QDialog{
 
         setupUi();
     }
-    // This method sets up the User Interface of the "LoginDialog" including 'Spinbox' and 'Checkbox'.
+    /** 
+     * This method sets up the User Interface of the "LoginDialog" including 
+     * 'Spinbox' and 'Checkbox'.
+     */
     private void setupUi() { 
         setWindowTitle(tr("Login"));
         setLayout(vLa1 = new QVBoxLayout(this));

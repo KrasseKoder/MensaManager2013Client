@@ -22,12 +22,17 @@ public class DataWidget extends QWidget {
         super(qw);
         setupUi();
     }
-    
+    /**
+     * This method sets up the User Interface including Layouts, Forms, 
+     * Buttons, etc.
+     */
     private void setupUi() {
         setLayout(vLa1= new QVBoxLayout());
         vLa1.addLayout(hLa1= new QHBoxLayout());
-        hLa1.addWidget(button1= new QPushButton(tr("unnamed1"), this)); // to be named
-        hLa1.addWidget(button2= new QPushButton(tr("unnamed2"), this)); // to be named
+        // to be named
+        hLa1.addWidget(button1= new QPushButton(tr("unnamed1"), this));
+        // to be named
+        hLa1.addWidget(button2= new QPushButton(tr("unnamed2"), this));
         vLa1.addWidget(view= new QTableView(this));
     }
 }
