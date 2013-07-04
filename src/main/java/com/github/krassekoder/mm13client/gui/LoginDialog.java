@@ -1,5 +1,7 @@
 package com.github.krassekoder.mm13client.gui;
 
+import com.github.krassekoder.mm13client.network.Connection;
+import com.github.krassekoder.mm13client.network.Packet0Login;
 import com.trolltech.qt.gui.QBoxLayout;
 import com.trolltech.qt.gui.QCheckBox;
 import com.trolltech.qt.gui.QDialog;
@@ -23,11 +25,11 @@ public class LoginDialog extends QDialog{
     private QBoxLayout vLa1, hLa1, hLa2;
     private QCheckBox atStart;
     private QPushButton login;
-    
+
     /**
      * The "LoginDialog" offers the possibility to log in to the server and to
      * open a Server-Client connection.
-     * 
+     *
      */
     public LoginDialog(QWidget qw) {
         super(qw);
@@ -69,8 +71,17 @@ public class LoginDialog extends QDialog{
         hLa2.addStretch();
         hLa2.addWidget(login = new QPushButton(tr("&Login"), this));
         login.setAutoDefault(false);
-        login.clicked.connect(this, "accept()");
+        login.clicked.connect(this, "login()");
         username.returnPressed.connect(password, "setFocus()");
         password.returnPressed.connect(login, "animateClick()");
     }
+
+    public void login() {
+        if(!Connection.instance.connect(ip.text(), port.value())) {
+            System.out.println("Error connecting");
+            return;
+        }
+        Packet0Login.instance.login(username.text(), password.text());
+    }
+
 }

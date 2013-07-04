@@ -10,7 +10,7 @@ public abstract class Packet {
     public static class TimeoutException extends Exception {}
 
     private static Packet[] packets = new Packet[128];
-    private static QTcpSocket socket;
+    protected static QTcpSocket socket;
 
     public Packet() {
         packets[id()] = this;

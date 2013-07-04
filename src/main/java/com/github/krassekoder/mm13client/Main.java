@@ -1,6 +1,7 @@
 package com.github.krassekoder.mm13client;
 
 import com.github.krassekoder.mm13client.gui.MainWindow;
+import com.github.krassekoder.mm13client.network.Connection;
 import com.trolltech.qt.gui.QApplication;
 
 /**
@@ -15,6 +16,8 @@ public class Main {
         QApplication.setApplicationVersion("Pre-Alpha");
         QApplication.setOrganizationName("KrasseKoder");
         QApplication.setOrganizationDomain("http://www.github.com/KrasseKoder/");
+
+        new Connection();
 
         w.show();
         QApplication.exec();
