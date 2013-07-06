@@ -42,9 +42,12 @@ public final class MainWindow extends QMainWindow {
         tabs.addTab(new DataWidget(tabs), tr("Data"));
         pay = new PayWidget(tabs);
         pay.hide();
-        tabs.addTab(admin = new AdminWidget(tabs),tr("Admin"));
+        admin = new AdminWidget(tabs);
+        admin.hide();
+        
     }
     
+    //Switches from TellerWidget to PayWidget
     public void ChangeToPay()
     {
         tabs.insertTab(0, pay, tr("Pay"));
@@ -52,11 +55,19 @@ public final class MainWindow extends QMainWindow {
         tabs.removeTab(1);
     }
     
+    //Switches from PayWidget to TellerWidget
     public void ChangeToTeller()
     {
        tabs.insertTab(0, teller, tr("Teller"));
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
+    }
+    
+    //Unlocks the AdminWidget  (Unlocking through the LoginDialog missing)
+    public void UnlockAdminWidget()
+    {
+        
+        tabs.insertTab(2,admin,tr("Admin"));
     }
     
     private void openAbout() {
@@ -72,6 +83,8 @@ public final class MainWindow extends QMainWindow {
         }
         login.exec();
     }
+    
+    
 /**
  *  This method sets up the menus 'Tools' and 'Help' as a menu bar on the 
  *  upper side of the window.

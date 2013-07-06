@@ -59,5 +59,8 @@ public class AdminWidget extends QWidget
      qv3.addWidget(enter2 = new QPushButton(tr("&Enter"), this));
           
      }  
+  
+  
+
 }
 
