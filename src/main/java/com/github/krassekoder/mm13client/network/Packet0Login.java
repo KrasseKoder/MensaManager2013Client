@@ -19,7 +19,7 @@ public class Packet0Login extends Packet{
         return 0;
     }
 
-    public static boolean login(String username, String password) {
+    public boolean login(String username, String password) throws InvalidPacketException {
         QByteArray data = new QByteArray();
         QByteArray uname = new QByteArray(username),
                 pwd = new QByteArray(password);
@@ -31,10 +31,17 @@ public class Packet0Login extends Packet{
         data.append(uname);
         data.append(pwd);
 
-        while(socket.bytesAvailable() < 1)
-            socket.waitForBytesWritten(10000);
+        sendData(data);
 
-        return socket.read(1).at(0) == 1;
+        while(socket.bytesAvailable() < 2)
+            socket.waitForReadyRead(10000);
+
+        QByteArray res = socket.read(2);
+
+        if(res.at(0) != 0)
+            throw new InvalidPacketException();
+
+        return res.at(1) > 0;
     }
 
     @Override

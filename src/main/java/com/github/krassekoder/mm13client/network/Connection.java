@@ -1,6 +1,6 @@
 package com.github.krassekoder.mm13client.network;
 
-import com.trolltech.qt.core.QIODevice;
+import com.trolltech.qt.network.QHostAddress;
 import com.trolltech.qt.network.QTcpSocket;
 
 
@@ -10,15 +10,18 @@ public class Connection{
     public class PacketException extends Exception {}
 
     public Connection() {
-        instance  = this;
+        instance = this;
     }
 
     public boolean connect(String host, int port) {
-        QTcpSocket s  = new QTcpSocket();
-        s.connectToHost(host, port, QIODevice.OpenModeFlag.ReadWrite);
-        if(!s.waitForConnected(10000))
+        QTcpSocket socket = new QTcpSocket();
+        System.out.println("Connecting to " + host + ":" + port);
+        socket.connectToHost(new QHostAddress(host), port);
+        if(!socket.waitForConnected()) {
+            System.out.println(socket.errorString());
             return false;
-        Packet.socket = s;
+        }
+        Packet.init(socket);
         return true;
     }
 }

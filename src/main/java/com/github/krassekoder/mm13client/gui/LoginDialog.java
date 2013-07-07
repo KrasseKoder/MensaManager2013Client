@@ -1,6 +1,7 @@
 package com.github.krassekoder.mm13client.gui;
 
 import com.github.krassekoder.mm13client.network.Connection;
+import com.github.krassekoder.mm13client.network.Packet;
 import com.github.krassekoder.mm13client.network.Packet0Login;
 import com.trolltech.qt.gui.QBoxLayout;
 import com.trolltech.qt.gui.QCheckBox;
@@ -14,6 +15,8 @@ import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QSpinBox;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class LoginDialog extends QDialog{
 
@@ -36,11 +39,11 @@ public class LoginDialog extends QDialog{
 
         setupUi();
     }
-    /** 
-     * This method sets up the User Interface of the "LoginDialog" including 
+    /**
+     * This method sets up the User Interface of the "LoginDialog" including
      * 'Spinbox' and 'Checkbox'.
      */
-    private void setupUi() { 
+    private void setupUi() {
         setWindowTitle(tr("Login"));
         setLayout(vLa1 = new QVBoxLayout(this));
         vLa1.addLayout(loginLayout = new QFormLayout(this));
@@ -81,7 +84,14 @@ public class LoginDialog extends QDialog{
             System.out.println("Error connecting");
             return;
         }
-        Packet0Login.instance.login(username.text(), password.text());
+        try {
+            if(Packet0Login.instance.login(username.text(), password.text()))
+                System.out.println("Logged in as " + username.text());
+            else
+                System.out.println("Failed to log in as " + username.text());
+        } catch(Packet.InvalidPacketException ex) {
+            Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
