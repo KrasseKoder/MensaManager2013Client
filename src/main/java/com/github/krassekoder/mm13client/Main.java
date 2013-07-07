@@ -10,12 +10,13 @@ import com.trolltech.qt.gui.QApplication;
 public class Main {
     public static void main(String[] args) {
         QApplication a = new QApplication(args);
-        MainWindow w = new MainWindow();
 
         QApplication.setApplicationName("MensaManager2013Client");
         QApplication.setApplicationVersion("Pre-Alpha");
         QApplication.setOrganizationName("KrasseKoder");
         QApplication.setOrganizationDomain("http://www.github.com/KrasseKoder/");
+
+        MainWindow w = new MainWindow();
 
         new Connection();
 

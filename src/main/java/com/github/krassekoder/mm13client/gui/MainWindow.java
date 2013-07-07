@@ -9,7 +9,7 @@ import com.trolltech.qt.gui.QTabWidget;
 
 public final class MainWindow extends QMainWindow {
     public static MainWindow instance;
-    
+
     private QMenuBar menu;
     private QMenu toolsMenu, helpMenu;
     private QAction loginAction;
@@ -30,9 +30,11 @@ public final class MainWindow extends QMainWindow {
         super();
         instance = this;
         setupUi();
+
+        login = new LoginDialog(this);
     }
     // This method sets up the User Interface of the main window including menu bar and tabs.
-    private void setupUi() { 
+    private void setupUi() {
         setWindowTitle("MensaManager 2013");
 
         setupMenus(); //sets up the menu bar as descripted below.
@@ -44,9 +46,9 @@ public final class MainWindow extends QMainWindow {
         pay.hide();
         admin = new AdminWidget(tabs);
         admin.hide();
-        
+
     }
-    
+
     //Switches from TellerWidget to PayWidget
     public void ChangeToPay()
     {
@@ -54,7 +56,7 @@ public final class MainWindow extends QMainWindow {
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
     }
-    
+
     //Switches from PayWidget to TellerWidget
     public void ChangeToTeller()
     {
@@ -62,14 +64,16 @@ public final class MainWindow extends QMainWindow {
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
     }
-    
+
     //Unlocks the AdminWidget  (Unlocking through the LoginDialog missing)
-    public void UnlockAdminWidget()
-    {
-        
+    public void unlockAdminWidget() {
         tabs.insertTab(2,admin,tr("Admin"));
     }
-    
+
+    public void disableLogin() {
+        loginAction.setDisabled(true);
+    }
+
     private void openAbout() {
         if (about == null) {
             about = new AboutDialog(this);
@@ -78,18 +82,15 @@ public final class MainWindow extends QMainWindow {
     }
 
     private void openLoginDialog() {
-        if (login == null) {
-            login = new LoginDialog(this);
-        }
-        login.exec();
+        login.show();
     }
-    
-    
+
+
 /**
- *  This method sets up the menus 'Tools' and 'Help' as a menu bar on the 
+ *  This method sets up the menus 'Tools' and 'Help' as a menu bar on the
  *  upper side of the window.
  */
-    private void setupMenus() { 
+    private void setupMenus() {
         setMenuBar(menu = new QMenuBar(this));
 
         menu.addMenu(toolsMenu = new QMenu(tr("&Tools"), menu));

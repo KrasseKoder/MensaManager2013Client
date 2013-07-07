@@ -19,7 +19,7 @@ public class Packet0Login extends Packet{
         return 0;
     }
 
-    public boolean login(String username, String password) throws InvalidPacketException {
+    public byte login(String username, String password) throws InvalidPacketException {
         QByteArray data = new QByteArray();
         QByteArray uname = new QByteArray(username),
                 pwd = new QByteArray(password);
@@ -41,7 +41,7 @@ public class Packet0Login extends Packet{
         if(res.at(0) != 0)
             throw new InvalidPacketException();
 
-        return res.at(1) > 0;
+        return res.at(1);
     }
 
     @Override
