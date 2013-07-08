@@ -1,7 +1,6 @@
 package com.github.krassekoder.mm13client.gui;
 
 import com.github.krassekoder.mm13client.network.Packet;
-import com.github.krassekoder.mm13client.network.Packet1FoodList;
 import com.github.krassekoder.mm13client.network.Packet2EntryEdit;
 import com.trolltech.qt.gui.QFormLayout;
 import com.trolltech.qt.gui.QGroupBox;
@@ -75,8 +74,9 @@ public class AdminWidget extends QWidget
      enter2.clicked.connect(this,"SaveEntry()");
      }
 
-  /*
+  /**
    * Save NewEntry
+   * Empty name will delete entry
    */
   public void SaveEntry()
   {
@@ -90,17 +90,16 @@ public class AdminWidget extends QWidget
       id.clear();
       price.clear();
   }
-  //Save NewUser saving to Library missing
+  /**
+   * Save NewUser saving to Library missing
+   * rights = 0 will delete user
+   */
   public void SaveNewUser()
   {
-      System.out.println("Added New User ");
-      System.out.println("Name: " + username.text());
-      System.out.println("Password: " + password.text());
-      System.out.println("Rights: " + rights.text());
+      System.out.println("User:" + username.text() + " " + password.text() + "(" + rights.text() + ")");
       username.clear();
       password.clear();
       rights.clear();
-
   }
 }
 
