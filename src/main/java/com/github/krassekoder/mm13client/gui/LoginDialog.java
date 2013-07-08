@@ -108,10 +108,7 @@ public class LoginDialog extends QDialog{
                     MainWindow.instance.unlockAdminWidget();
                 MainWindow.instance.disableLogin();
                 hide();
-                if ( rights==1)
-                {
-                  MainWindow.instance.unlockAdminWidget();
-                }
+                
             }
             else {
                 System.out.println("Failed to log in as " + username.text());

@@ -30,9 +30,9 @@ public class DataWidget extends QWidget {
         setLayout(vLa1= new QVBoxLayout());
         vLa1.addLayout(hLa1= new QHBoxLayout());
         // to be named
-        hLa1.addWidget(button1= new QPushButton(tr("unnamed1"), this));
+        hLa1.addWidget(button1= new QPushButton(tr("Show Data"), this));
         // to be named
-        hLa1.addWidget(button2= new QPushButton(tr("unnamed2"), this));
+        hLa1.addWidget(button2= new QPushButton(tr("Show Average"), this));
         vLa1.addWidget(view= new QTableView(this));
     }
 }

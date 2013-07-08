@@ -21,7 +21,7 @@ public class TellerWidget extends QWidget {
     private QLineEdit product;
     private QPushButton pay;
     private QLabel ql, ql2;
-    private QHBoxLayout qh1, qh2, qh3;
+    private QHBoxLayout qh1, qh2, qh3,qh4;
     private QVBoxLayout qv1, qv2;
     private QWidget qw;
     private QLabel pLabel;
@@ -46,14 +46,15 @@ public class TellerWidget extends QWidget {
         qh2.addWidget(ql2 = new QLabel(tr("Product:"), this));
         qh2.addWidget(product = new QLineEdit(this));
         qv1.addWidget(pay = new QPushButton(tr("&Continue to Pay..."), this));
-        qh1.addWidget(list = new QTableWidget(0, 3));
+        qv2.addLayout(qh4 = new QHBoxLayout());
+        qh4.addWidget(list = new QTableWidget(0, 3));
         ArrayList<String> labels = new ArrayList<String>(3);
         labels.add(tr("ID"));
         labels.add(tr("Name"));
         labels.add(tr("Prize"));
         list.setHorizontalHeaderLabels(labels);
         qh1.addWidget(qw = new QWidget());
-        qv2.addWidget(price = new QTableWidget(0, 3));
+        qh4.addWidget(price = new QTableWidget(0, 3));
         price.setHorizontalHeaderLabels(labels);
         qv2.addLayout(qh3 = new QHBoxLayout());
         qh3.addStretch();
