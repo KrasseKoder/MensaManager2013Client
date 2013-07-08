@@ -92,6 +92,9 @@ public class LoginDialog extends QDialog{
     }
 
     public void login() {
+        if(rights > 0)
+            return;
+
         if(!Connection.instance.connect(ip.text(), port.value())) {
             System.out.println("Error connecting");
             return;
