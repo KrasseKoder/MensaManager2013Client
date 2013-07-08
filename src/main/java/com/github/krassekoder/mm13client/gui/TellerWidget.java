@@ -25,6 +25,7 @@ public class TellerWidget extends QWidget {
     private QVBoxLayout qv1, qv2;
     private QWidget qw;
     private QLabel pLabel;
+    private double value = 0;
 
     /**
      * The TellerWidget is used to give up the order. It shows what the order
@@ -52,8 +53,7 @@ public class TellerWidget extends QWidget {
         labels.add(tr("Prize"));
         list.setHorizontalHeaderLabels(labels);
         qh1.addWidget(qw = new QWidget());
-        qv2.addWidget(price = new QTableWidget(0, 2));
-        labels.remove(0);
+        qv2.addWidget(price = new QTableWidget(0, 3));
         price.setHorizontalHeaderLabels(labels);
         qv2.addLayout(qh3 = new QHBoxLayout());
         qh3.addStretch();
@@ -61,6 +61,7 @@ public class TellerWidget extends QWidget {
 
         pay.clicked.connect(this, "GoToPay()");
         product.textEdited.connect(this, "request()");
+        product.returnPressed.connect(this, "moveFoodItem()");
     }
 
     private void GoToPay() {
@@ -85,5 +86,22 @@ public class TellerWidget extends QWidget {
             list.setItem(row, 1, new QTableWidgetItem(i.name));
             list.setItem(row, 2, new QTableWidgetItem(i.price));
         }
+    }
+
+    private void moveFoodItem() {
+        if(list.rowCount() < 1)
+            return;
+        int row = price.rowCount();
+        price.insertRow(row);
+        price.setItem(row, 0, new QTableWidgetItem(list.item(0, 0).text()));
+        price.setItem(row, 1, new QTableWidgetItem(list.item(0, 1).text()));
+        price.setItem(row, 2, new QTableWidgetItem(list.item(0, 2).text()));
+
+        value += Double.parseDouble(list.item(0,2).text());
+        updateLabel();
+    }
+
+    private void updateLabel() {
+        pLabel.setText(String.format(tr("%1$.2f$"), value));
     }
 }
