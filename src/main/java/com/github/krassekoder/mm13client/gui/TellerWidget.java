@@ -51,6 +51,8 @@ public class TellerWidget extends QWidget{
 private void GoToPay()
 {
     MainWindow.instance.ChangeToPay();
+    //Just for testing the AdminWidget 
+    MainWindow.instance.UnlockAdminWidget();
 }
     
     

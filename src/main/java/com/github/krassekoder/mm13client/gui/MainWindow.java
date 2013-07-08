@@ -70,6 +70,11 @@ public final class MainWindow extends QMainWindow {
         tabs.insertTab(2,admin,tr("Admin"));
     }
     
+    public void CloseAdminWidget()
+    {
+        tabs.removeTab(2);
+    }
+    
     private void openAbout() {
         if (about == null) {
             about = new AboutDialog(this);
