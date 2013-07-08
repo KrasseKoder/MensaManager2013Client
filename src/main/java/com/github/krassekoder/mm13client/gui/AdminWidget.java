@@ -1,5 +1,7 @@
 package com.github.krassekoder.mm13client.gui;
 
+import com.github.krassekoder.mm13client.network.Packet;
+import com.github.krassekoder.mm13client.network.Packet2EntryEdit;
 import com.trolltech.qt.gui.QFormLayout;
 import com.trolltech.qt.gui.QGroupBox;
 import com.trolltech.qt.gui.QHBoxLayout;
@@ -8,6 +10,8 @@ import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * The AdminWidget allows you to add new users and
@@ -24,19 +28,19 @@ public class AdminWidget extends QWidget
     private QLabel name1Label,name2Label,passwordLabel,priceLabel,IdLabel,rightsLabel;
     private QPushButton enter1,enter2;
     private QFormLayout loginLayout;
-    
+
     public AdminWidget(QWidget qw)
  {
      super(qw);
      setupUi();
  }
-    
-    /** 
-     * This method sets up the User Interface of "AdminWidget" including 
+
+    /**
+     * This method sets up the User Interface of "AdminWidget" including
      * 'QGroupBox' and 'QPushButton'.
      */
   private void setupUi(){
-     
+
      setLayout(qv1=new QVBoxLayout());
      qv1.addWidget(newUser = new QGroupBox(tr("New User"), this));
      newUser.setLayout(qv2 = new QVBoxLayout(newUser));
@@ -46,13 +50,13 @@ public class AdminWidget extends QWidget
      qv2.addLayout(qh2 = new QHBoxLayout());
      qh2.addWidget(passwordLabel = new QLabel(tr("Password: "), newUser));
      qh2.addWidget(password = new QLineEdit(newUser));
-     
+
      qv2.addLayout(qh6 = new QHBoxLayout());
      qh6.addWidget(rightsLabel = new QLabel(tr("Rights:      "), newEntry));
      qh6.addWidget(rights = new QLineEdit(newEntry));
-     
+
      qv2.addWidget(enter1 = new QPushButton(tr("&Enter"), this));
-     
+
      qv1.addWidget(newEntry = new QGroupBox(tr("New Entry"), this));
      newEntry.setLayout(qv3 = new QVBoxLayout(newEntry));
      qv3.addLayout(qh3 = new QHBoxLayout());
@@ -65,36 +69,38 @@ public class AdminWidget extends QWidget
      qh5.addWidget(IdLabel = new QLabel(tr("Id:     "), newEntry));
      qh5.addWidget(id = new QLineEdit(newEntry));
      qv3.addWidget(enter2 = new QPushButton(tr("&Enter"), this));
-     
+
      enter1.clicked.connect(this,"SaveNewUser()");
      enter2.clicked.connect(this,"SaveEntry()");
-     }  
-  
-  //Save NewEntry saving to Library missing
+     }
+
+  /**
+   * Save NewEntry
+   * Empty name will delete entry
+   */
   public void SaveEntry()
   {
-      System.out.println("Added New Product ");
-      System.out.println("Productname: " + productname.text());
-      System.out.println("Id: " + id.text());
-      System.out.println("Price: " + price.text());
+        try {
+            Packet2EntryEdit.instance.edit(id.text(), productname.text(), price.text());
+        } catch(Packet.InvalidPacketException ex) {
+            Logger.getLogger(AdminWidget.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      System.out.println("Product(" + id.text() + "): " + productname.text() + " : " + price.text());
       productname.clear();
       id.clear();
       price.clear();
   }
-  //Save NewUser saving to Library missing
+  /**
+   * Save NewUser saving to Library missing
+   * rights = 0 will delete user
+   */
   public void SaveNewUser()
   {
-      System.out.println("Added New User ");
-      System.out.println("Name: " + username.text());
-      System.out.println("Password: " + password.text());
-      System.out.println("Rights: " + rights.text());
+      System.out.println("User:" + username.text() + " " + password.text() + "(" + rights.text() + ")");
       username.clear();
       password.clear();
       rights.clear();
-      
   }
-  
-  }
-  
+}
 
 
