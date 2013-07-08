@@ -2,6 +2,7 @@ package com.github.krassekoder.mm13client;
 
 import com.github.krassekoder.mm13client.gui.MainWindow;
 import com.github.krassekoder.mm13client.network.Connection;
+import com.trolltech.qt.core.QSize;
 import com.trolltech.qt.gui.QApplication;
 import com.trolltech.qt.gui.QIcon;
 
@@ -12,12 +13,15 @@ public class Main {
     public static void main(String[] args) {
         QApplication a = new QApplication(args);
         QIcon icon;
+        
+        
 
         QApplication.setApplicationName("MensaManager2013Client");
         QApplication.setApplicationVersion("Pre-Alpha");
         QApplication.setOrganizationName("KrasseKoder");
         QApplication.setOrganizationDomain("http://www.github.com/KrasseKoder/");
         QApplication.setWindowIcon(icon = new QIcon("classpath:com/github/krassekoder/icon.png"));
+        
 
         MainWindow w = new MainWindow();
 

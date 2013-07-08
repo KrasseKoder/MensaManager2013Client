@@ -36,6 +36,8 @@ public final class MainWindow extends QMainWindow {
     // This method sets up the User Interface of the main window including menu bar and tabs.
     private void setupUi() {
         setWindowTitle("MensaManager 2013");
+        setMinimumSize(640,400);
+        setMaximumWidth(640);
 
         setupMenus(); //sets up the menu bar as descripted below.
         setStatusBar(status = new QStatusBar(this));
