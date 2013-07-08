@@ -34,6 +34,7 @@ public abstract class Packet {
         Packet.socket = socket;
         //initialize packets here
         new Packet0Login();
+        new Packet1FoodList();
     }
     public static void receive() throws InvalidPacketException, TimeoutException {
         QByteArray id = socket.read(1);

@@ -9,6 +9,7 @@ import com.trolltech.qt.network.QTcpSocket;
 public class Packet0Login extends Packet{
 
     public static Packet0Login instance;
+    private byte rights;
 
     public Packet0Login() {
         instance = this;
@@ -20,6 +21,8 @@ public class Packet0Login extends Packet{
     }
 
     public byte login(String username, String password) throws InvalidPacketException {
+        if(rights > 0)
+            return rights;
         QByteArray data = new QByteArray();
         QByteArray uname = new QByteArray(username),
                 pwd = new QByteArray(password);
@@ -41,7 +44,7 @@ public class Packet0Login extends Packet{
         if(res.at(0) != 0)
             throw new InvalidPacketException();
 
-        return res.at(1);
+        return rights = res.at(1);
     }
 
     @Override
