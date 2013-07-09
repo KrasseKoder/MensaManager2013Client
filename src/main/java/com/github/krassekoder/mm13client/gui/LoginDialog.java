@@ -16,7 +16,6 @@ import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
-import com.trolltech.qt.gui.QShowEvent;
 import com.trolltech.qt.gui.QSpinBox;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
@@ -107,6 +106,7 @@ public class LoginDialog extends QDialog{
                 if(rights > 1)
                     MainWindow.instance.unlockAdminWidget();
                 MainWindow.instance.disableLogin();
+                MainWindow.instance.enableLogout();
                 hide();
                 
             }
@@ -117,6 +117,13 @@ public class LoginDialog extends QDialog{
         } catch(Packet.InvalidPacketException ex) {
             Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void logout() {
+        rights=0;
+        username.clear();
+        password.clear();
+        username.setFocus();
     }
 
     private void load() {

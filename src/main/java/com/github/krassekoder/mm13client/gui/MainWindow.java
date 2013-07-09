@@ -12,7 +12,7 @@ public final class MainWindow extends QMainWindow {
 
     private QMenuBar menu;
     private QMenu toolsMenu, helpMenu;
-    private QAction loginAction;
+    private QAction loginAction, logoutAction;
     private QAction aboutAction;
     private QStatusBar status;
     private QTabWidget tabs;
@@ -39,7 +39,7 @@ public final class MainWindow extends QMainWindow {
         setMinimumSize(640,400);
         setMaximumWidth(640);
 
-        setupMenus(); //sets up the menu bar as descripted below.
+        setupMenus(); //sets up the menu bar as described below.
         setStatusBar(status = new QStatusBar(this));
         setCentralWidget(tabs = new QTabWidget(this));
         tabs.addTab(teller = new TellerWidget(tabs),tr("Teller"));
@@ -71,9 +71,24 @@ public final class MainWindow extends QMainWindow {
     public void unlockAdminWidget() {
         tabs.insertTab(2,admin,tr("Admin"));
     }
+    
+    public void lockAdminWidget() {
+        tabs.removeTab(2);
+    }
 
+    public void enableLogin() {
+        loginAction.setVisible(true);
+    }
     public void disableLogin() {
-        loginAction.setDisabled(true);
+        loginAction.setVisible(false);
+    }
+    
+    public void enableLogout() {
+        logoutAction.setVisible(true);
+    }
+    
+    public void disableLogout() {
+        logoutAction.setVisible(false);
     }
 
     private void openAbout() {
@@ -85,6 +100,15 @@ public final class MainWindow extends QMainWindow {
 
     private void openLoginDialog() {
         login.show();
+    }
+    
+    private void clickLogout() {
+        login.logout();
+        setWindowTitle("MensaManager 2013");
+        disableLogout();
+        enableLogin();
+        lockAdminWidget();
+        System.out.println("Logged out");
     }
 
 
@@ -98,6 +122,9 @@ public final class MainWindow extends QMainWindow {
         menu.addMenu(toolsMenu = new QMenu(tr("&Tools"), menu));
         toolsMenu.addAction(loginAction = new QAction(tr("&Login..."), toolsMenu));
         loginAction.triggered.connect(this, "openLoginDialog()");
+        toolsMenu.addAction(logoutAction = new QAction(tr("Logout..."), toolsMenu));
+        logoutAction.setVisible(false);
+        logoutAction.triggered.connect(this, "clickLogout()");
 
         menu.addMenu(helpMenu = new QMenu(tr("&Help"), menu));
         helpMenu.addAction(aboutAction = new QAction(tr("&About..."), helpMenu));
