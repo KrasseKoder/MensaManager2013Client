@@ -36,6 +36,7 @@ public class TellerWidget extends QWidget {
     public TellerWidget(QWidget qw) {
         super(qw);
         setupUi();
+        
     }
     //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
 
@@ -60,10 +61,10 @@ public class TellerWidget extends QWidget {
         qv2.addLayout(qh3 = new QHBoxLayout());
         qh3.addStretch();
         qh3.addWidget(pLabel = new QLabel(tr("0.00$")));
-
         pay.clicked.connect(this, "GoToPay()");
         product.textEdited.connect(this, "request()");
         product.returnPressed.connect(this, "moveFoodItem()");
+        
     }
 
     private void GoToPay() {
@@ -73,7 +74,7 @@ public class TellerWidget extends QWidget {
         
     }
 
-    private void request() {
+    public void request() {
         try {
             enterFoodList(Packet1FoodList.instance.request(product.text()));
         } catch(Packet.InvalidPacketException ex) {

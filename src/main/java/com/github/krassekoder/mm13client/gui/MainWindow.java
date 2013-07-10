@@ -50,6 +50,7 @@ public final class MainWindow extends QMainWindow {
         pay.hide();
         admin = new AdminWidget(tabs);
         admin.hide();
+        
 
     }
 
@@ -120,6 +121,11 @@ public final class MainWindow extends QMainWindow {
         enableLogin();
         lockAdminWidget();
         System.out.println("Logged out");
+    }
+    
+    public void showFoodList()
+    {
+        teller.request();
     }
 
 
