@@ -111,8 +111,7 @@ public class TellerWidget extends QWidget {
     }
     
     private void resetLabel() {
-        value= 0.00;
-        pLabel.setText("0.00");
+        pLabel.setText("0.00$");
     }
     
     private void saveAmount()
