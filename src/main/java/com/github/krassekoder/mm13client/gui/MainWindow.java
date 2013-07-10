@@ -56,7 +56,7 @@ public final class MainWindow extends QMainWindow {
 
     }
 
-    //Switches from TellerWidget to PayWidget
+    //Switches from "TellerWidget" to "PayWidget"
     public void ChangeToPay()
     {
         tabs.insertTab(0, pay, tr("Pay"));
@@ -64,7 +64,7 @@ public final class MainWindow extends QMainWindow {
         tabs.removeTab(1);
     }
 
-    //Switches from PayWidget to TellerWidget
+    //Switches from "PayWidget" to "TellerWidget"
     public void ChangeToTeller()
     {
        teller.newPurchase();
@@ -72,64 +72,65 @@ public final class MainWindow extends QMainWindow {
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
     }
-    
+    //Gives the complete price of an order
     public double giveValue(){
         return teller.giveValue();
     }
 
-    //Unlocks the AdminWidget  (Unlocking through the LoginDialog missing)
+    //Unlocks the "AdminWidget"  
     public void unlockAdminWidget() {
         tabs.insertTab(2,admin,tr("Admin"));
     }
-    
+    //Locks the "AdminWidget"
     public void lockAdminWidget() {
         tabs.removeTab(2);
     }
-
+    //Enables the option to login
     public void enableLogin() {
         loginAction.setVisible(true);
     }
+    //Disables the option to login
     public void disableLogin() {
         loginAction.setVisible(false);
     }
-    
+    //Enables the option to logout
     public void enableLogout() {
         logoutAction.setVisible(true);
     }
-    
+    //Disables the option to logout
     public void disableLogout() {
         logoutAction.setVisible(false);
     }
-    
+    //Enables the EscapeMessage
     public void enableEscapeMessage(){
         esc.setVisible(true);
     }
-    
+    //Disables the EscapeMessage
     public void disableEscapeMessage(){
         esc.setVisible(false);
     }
-    
+    //Enables the ChangeDialog an sets a new Change
     public void enableChangeDialog(double newchange){
         change.newChange(newchange);
         change.setVisible(true);
         
     }
-    
+    //Disables the ChangeDialog
     public void disableChangeDialog(){
         change.setVisible(false);
     }
-
+    //Opens the AboutDialog
     private void openAbout() {
         if (about == null) {
             about = new AboutDialog(this);
         }
         about.show();
     }
-
+    //Opens the LoginDialog
     private void openLoginDialog() {
         login.show();
     }
-    
+    //The Method for loging out
     private void clickLogout() {
         login.logout();
         setWindowTitle("MensaManager 2013");
@@ -138,7 +139,7 @@ public final class MainWindow extends QMainWindow {
         lockAdminWidget();
         System.out.println("Logged out");
     }
-    
+    //Shows the "FoodList"
     public void showFoodList()
     {
         teller.request();

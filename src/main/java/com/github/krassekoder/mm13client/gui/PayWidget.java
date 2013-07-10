@@ -66,7 +66,7 @@ public class PayWidget extends QWidget {
        MainWindow.instance.enableEscapeMessage();
      }
      
-     //Returns the GivenMoney
+     //Saves the given Money in moneySafe
      public void getGivenMoney(){
          moneySafe= money.text();
      }
