@@ -17,8 +17,7 @@ public class ChangeDialog extends QDialog{
 
     private QLabel ch,bch;
     private QPushButton confirm,back;
-    private QBoxLayout vLa1, hLa1;
-    private double change;
+    private QBoxLayout vLa1,vLa2, hLa1,hLa2;
 
    
     public ChangeDialog(QWidget qw) {
@@ -30,17 +29,18 @@ public class ChangeDialog extends QDialog{
      */
     private void setupUi() {
         setWindowTitle(tr("Change"));
-        setFixedSize(160,160);
+        setFixedSize(160,110);
         
         setLayout(vLa1 = new QVBoxLayout(this));
-        vLa1.addWidget(ch= new QLabel(tr("Change to give back:"),this));
-        vLa1.addWidget(bch = new QLabel("change",this));
         vLa1.addLayout(hLa1 = new QHBoxLayout(this));
-        hLa1.addWidget(confirm = new QPushButton(tr("Confirm"), this));
-        hLa1.addWidget(back = new QPushButton(tr("Back"), this));
-        
+        hLa1.addWidget(ch= new QLabel(tr("Change to give back:"),this));
+        hLa1.addWidget(bch = new QLabel("",this));
+        vLa1.addLayout(hLa2 = new QHBoxLayout(this));
+        hLa2.addWidget(confirm = new QPushButton(tr("Confirm"), this));
+        hLa2.addWidget(back = new QPushButton(tr("Back"), this));
         back.clicked.connect(this,"back()");
         confirm.clicked.connect(this,"confirm()");
+        
     }
     
     //Method to go back to the PayWidget
@@ -52,12 +52,15 @@ public class ChangeDialog extends QDialog{
     private void confirm(){
     MainWindow.instance.disableChangeDialog();
     MainWindow.instance.ChangeToTeller();
+    
     }
     
-    //Method to get the change
-    private void getChange(){
-    change = MainWindow.instance.giveValue();
+    //Method to set a new Change
+    public void newChange(double newchange)
+    {
+        bch.setText(Double.toString(newchange));
     }
+    
 
    
 

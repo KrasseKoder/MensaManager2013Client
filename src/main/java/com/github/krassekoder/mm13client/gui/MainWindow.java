@@ -76,10 +76,6 @@ public final class MainWindow extends QMainWindow {
     public double giveValue(){
         return teller.giveValue();
     }
-    
-    public String getGivenMoney(){
-        return pay.getGivenMoney();
-    }
 
     //Unlocks the AdminWidget  (Unlocking through the LoginDialog missing)
     public void unlockAdminWidget() {
@@ -113,8 +109,10 @@ public final class MainWindow extends QMainWindow {
         esc.setVisible(false);
     }
     
-    public void enableChangeDialog(){
+    public void enableChangeDialog(double newchange){
+        change.newChange(newchange);
         change.setVisible(true);
+        
     }
     
     public void disableChangeDialog(){

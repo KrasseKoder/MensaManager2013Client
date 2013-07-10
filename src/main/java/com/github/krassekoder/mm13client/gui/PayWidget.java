@@ -21,6 +21,8 @@ public class PayWidget extends QWidget {
     private QLineEdit money;
     private QVBoxLayout vLa1;
     private QLabel mLabel;
+    public double change;
+    public String moneySafe;
     
     public PayWidget(QWidget qw) {
         super(qw);
@@ -41,10 +43,10 @@ public class PayWidget extends QWidget {
         hLa2.addWidget(print= new QPushButton(tr("P&rint && Pay"),this));
         hLa2.addWidget(pay= new QPushButton(tr("&Pay"),this));
         hLa2.addWidget(esc= new QPushButton(tr("&Cancel"),this));
-        
-        print.clicked.connect(this,"GoToTeller()");
-        pay.clicked.connect(this,"GoToTeller()");
+        print.clicked.connect(this,"enableChangeDialog()");
+        pay.clicked.connect(this,"enableChangeDialog())");
         esc.clicked.connect(this,"EscapeMessage()");
+        money.editingFinished.connect(this,"getGivenMoney()");
     }  
      
      /**
@@ -53,11 +55,11 @@ public class PayWidget extends QWidget {
       * is pressed.
       */
      
-     //Method to switch to the "TellerWidget"
-     private void GoToTeller(){
-        MainWindow.instance.ChangeToTeller();
-        MainWindow.instance.enableChangeDialog();
-    }
+     //Method to enable the ChangeDialog
+     private void enableChangeDialog(){
+        getChange();
+        MainWindow.instance.enableChangeDialog(change);
+        }
      
      //Enables the EscapeMessage
      private void EscapeMessage(){
@@ -65,9 +67,20 @@ public class PayWidget extends QWidget {
      }
      
      //Returns the GivenMoney
-     public String getGivenMoney(){
-         return money.text();
+     public void getGivenMoney(){
+         moneySafe= money.text();
      }
+     //Calculates the Change
+     private void getChange(){
+        double speicher1;
+        speicher1 = Double.parseDouble(moneySafe);
+        change = speicher1-MainWindow.instance.giveValue();
+    }
      
-     
+     //Returns the Charge
+     public double giveChange()
+     {
+         getChange();
+         return change;
+     }
 }
