@@ -124,6 +124,7 @@ public class TellerWidget extends QWidget {
     {
        resetLabel();
        resetValue();
+       product.clear();
        while(price.rowCount() > 0)
             price.removeRow(0); 
     }

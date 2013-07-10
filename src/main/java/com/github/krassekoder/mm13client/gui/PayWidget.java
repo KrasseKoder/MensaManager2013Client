@@ -57,8 +57,10 @@ public class PayWidget extends QWidget {
      
      //Method to enable the ChangeDialog
      private void enableChangeDialog(){
-        getChange();
-        MainWindow.instance.enableChangeDialog(change);
+         if(money.hasAcceptableInput())
+         {
+             getChange();
+             MainWindow.instance.enableChangeDialog(change);}
         }
      
      //Enables the EscapeMessage
