@@ -26,6 +26,7 @@ public class TellerWidget extends QWidget {
     private QWidget qw;
     private QLabel pLabel;
     private double value = 0;
+    public String amount;
 
     /**
      * The TellerWidget is used to give up the order. It shows what the order
@@ -67,6 +68,9 @@ public class TellerWidget extends QWidget {
 
     private void GoToPay() {
         MainWindow.instance.ChangeToPay();
+        saveAmount();
+        newPurchase();
+        
     }
 
     private void request() {
@@ -104,5 +108,21 @@ public class TellerWidget extends QWidget {
 
     private void updateLabel() {
         pLabel.setText(String.format(tr("%1$.2f$"), value));
+    }
+    
+    private void resetLabel() {
+        pLabel.setText("0.00$");
+    }
+    
+    private void saveAmount()
+    {
+        amount=pLabel.text();
+    }
+    
+    private void newPurchase()
+    {
+       resetLabel();
+       while(price.rowCount() > 0)
+            price.removeRow(0); 
     }
 }

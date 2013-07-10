@@ -17,8 +17,7 @@ public class PayWidget extends QWidget {
     
     private QTextBrowser view;
     private QHBoxLayout hLa1,hLa2;
-    private QPushButton print;
-    private QPushButton pay;
+    private QPushButton print,esc,pay;
     private QLineEdit money;
     private QVBoxLayout vLa1;
     private QLabel mLabel;
@@ -41,9 +40,11 @@ public class PayWidget extends QWidget {
         vLa1.addLayout(hLa2= new QHBoxLayout(this));
         hLa2.addWidget(print= new QPushButton(tr("P&rint && Pay"),this));
         hLa2.addWidget(pay= new QPushButton(tr("&Pay"),this));
+        hLa2.addWidget(esc= new QPushButton(tr("&Escape"),this));
         
         print.clicked.connect(this,"GoToTeller()");
         pay.clicked.connect(this,"GoToTeller()");
+        esc.clicked.connect(this,"EscapeMessage()");
     }  
      
      /**
@@ -55,5 +56,10 @@ public class PayWidget extends QWidget {
     {
         MainWindow.instance.ChangeToTeller();
     }
+     
+     private void EscapeMessage()
+     {
+       MainWindow.instance.enableEscapeMessage();
+     }
      
 }

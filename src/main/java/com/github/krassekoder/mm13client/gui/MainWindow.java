@@ -18,6 +18,7 @@ public final class MainWindow extends QMainWindow {
     private QTabWidget tabs;
     private AboutDialog about;
     private LoginDialog login;
+    private EscapeMessage esc;
     private PayWidget pay;
     private TellerWidget teller;
     private AdminWidget admin;
@@ -32,6 +33,7 @@ public final class MainWindow extends QMainWindow {
         setupUi();
 
         login = new LoginDialog(this);
+        esc = new EscapeMessage(this);
     }
     // This method sets up the User Interface of the main window including menu bar and tabs.
     private void setupUi() {
@@ -62,6 +64,7 @@ public final class MainWindow extends QMainWindow {
     //Switches from PayWidget to TellerWidget
     public void ChangeToTeller()
     {
+       
        tabs.insertTab(0, teller, tr("Teller"));
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
@@ -89,6 +92,14 @@ public final class MainWindow extends QMainWindow {
     
     public void disableLogout() {
         logoutAction.setVisible(false);
+    }
+    
+    public void enableEscapeMessage(){
+        esc.setVisible(true);
+    }
+    
+    public void disableEscapeMessage(){
+        esc.setVisible(false);
     }
 
     private void openAbout() {
