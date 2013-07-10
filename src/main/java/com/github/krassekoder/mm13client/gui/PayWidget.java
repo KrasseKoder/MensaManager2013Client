@@ -40,7 +40,7 @@ public class PayWidget extends QWidget {
         vLa1.addLayout(hLa2= new QHBoxLayout(this));
         hLa2.addWidget(print= new QPushButton(tr("P&rint && Pay"),this));
         hLa2.addWidget(pay= new QPushButton(tr("&Pay"),this));
-        hLa2.addWidget(esc= new QPushButton(tr("&Escape"),this));
+        hLa2.addWidget(esc= new QPushButton(tr("&Cancel"),this));
         
         print.clicked.connect(this,"GoToTeller()");
         pay.clicked.connect(this,"GoToTeller()");
@@ -52,14 +52,22 @@ public class PayWidget extends QWidget {
       * order to change from the Pay-tab to the Teller-tab when 'Pay' or 'Print' 
       * is pressed.
       */
-     private void GoToTeller()
-    {
+     
+     //Method to switch to the "TellerWidget"
+     private void GoToTeller(){
         MainWindow.instance.ChangeToTeller();
+        MainWindow.instance.enableChangeDialog();
     }
      
-     private void EscapeMessage()
-     {
+     //Enables the EscapeMessage
+     private void EscapeMessage(){
        MainWindow.instance.enableEscapeMessage();
      }
+     
+     //Returns the GivenMoney
+     public String getGivenMoney(){
+         return money.text();
+     }
+     
      
 }

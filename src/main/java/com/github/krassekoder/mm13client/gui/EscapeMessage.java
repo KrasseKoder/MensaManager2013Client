@@ -6,23 +6,26 @@ import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+
+/**
+ * The "EscapeMessage" appears if you press "Escape" in the "PayWidget"
+ * and shows a message wheater you really want to cancel the order.
+ * You can choose between "Yes" and "No".
+ */
+
 public class EscapeMessage extends QDialog{
 
     private QLabel em;
     private QPushButton ok,back;
     private QBoxLayout vLa1, hLa1;
 
-    /**
-     * Shows the EscapeMessage
-     *
-     */
+    
     public EscapeMessage(QWidget qw) {
         super(qw);
         setupUi();
     }
     /**
-     * This method sets up the User Interface of the "LoginDialog" including
-     * 'Spinbox' and 'Checkbox'.
+     * This method sets up the User Interface of the "Escape Message"
      */
     private void setupUi() {
         setWindowTitle(tr("Cancel"));
@@ -37,12 +40,12 @@ public class EscapeMessage extends QDialog{
         back.clicked.connect(this,"back()");
         ok.clicked.connect(this,"cancelOrder()");
     }
-    
+    //Method to go back to "PayWidget"
     private void back()
     {
     MainWindow.instance.disableEscapeMessage();
     }
-    
+    //Method to cancel the order and go to "Teller Widget"
     private void cancelOrder()
     {
     MainWindow.instance.disableEscapeMessage();

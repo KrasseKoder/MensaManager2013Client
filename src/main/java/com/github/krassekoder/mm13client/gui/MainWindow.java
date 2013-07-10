@@ -22,6 +22,7 @@ public final class MainWindow extends QMainWindow {
     private PayWidget pay;
     private TellerWidget teller;
     private AdminWidget admin;
+    private ChangeDialog change;
 
     /**
      * The "MainWindow" is the first window seen by the user and refers to all
@@ -34,6 +35,7 @@ public final class MainWindow extends QMainWindow {
 
         login = new LoginDialog(this);
         esc = new EscapeMessage(this);
+        change = new ChangeDialog(this);
     }
     // This method sets up the User Interface of the main window including menu bar and tabs.
     private void setupUi() {
@@ -65,10 +67,18 @@ public final class MainWindow extends QMainWindow {
     //Switches from PayWidget to TellerWidget
     public void ChangeToTeller()
     {
-       
+       teller.newPurchase();
        tabs.insertTab(0, teller, tr("Teller"));
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
+    }
+    
+    public double giveValue(){
+        return teller.giveValue();
+    }
+    
+    public String getGivenMoney(){
+        return pay.getGivenMoney();
     }
 
     //Unlocks the AdminWidget  (Unlocking through the LoginDialog missing)
@@ -102,6 +112,14 @@ public final class MainWindow extends QMainWindow {
     public void disableEscapeMessage(){
         esc.setVisible(false);
     }
+    
+    public void enableChangeDialog(){
+        change.setVisible(true);
+    }
+    
+    public void disableChangeDialog(){
+        change.setVisible(false);
+    }
 
     private void openAbout() {
         if (about == null) {
@@ -127,8 +145,10 @@ public final class MainWindow extends QMainWindow {
     {
         teller.request();
     }
+    
+    
 
-
+    
 /**
  *  This method sets up the menus 'Tools' and 'Help' as a menu bar on the
  *  upper side of the window.
@@ -147,4 +167,6 @@ public final class MainWindow extends QMainWindow {
         helpMenu.addAction(aboutAction = new QAction(tr("&About..."), helpMenu));
         aboutAction.triggered.connect(this, "openAbout()");
     }
+
+   
 }
