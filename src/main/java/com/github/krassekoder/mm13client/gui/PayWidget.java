@@ -85,4 +85,10 @@ public class PayWidget extends QWidget {
          getChange();
          return change;
      }
+     
+     //clears the money 'LineEdit'
+     public void clearMoney()
+     {
+         money.clear();
+     }
 }

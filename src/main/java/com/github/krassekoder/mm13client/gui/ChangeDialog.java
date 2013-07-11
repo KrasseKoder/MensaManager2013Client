@@ -18,6 +18,7 @@ public class ChangeDialog extends QDialog{
     private QLabel ch,bch;
     private QPushButton confirm,back;
     private QBoxLayout vLa1,vLa2, hLa1,hLa2;
+    private PayWidget pay;
 
    
     public ChangeDialog(QWidget qw) {
@@ -40,6 +41,7 @@ public class ChangeDialog extends QDialog{
         hLa2.addWidget(back = new QPushButton(tr("Back"), this));
         back.clicked.connect(this,"back()");
         confirm.clicked.connect(this,"confirm()");
+        confirm.clicked.connect(this,"clearMoney()");
         
     }
     
@@ -61,6 +63,10 @@ public class ChangeDialog extends QDialog{
         bch.setText(Double.toString(newchange));
     }
     
+    public void clearMoney()
+    {
+    MainWindow.instance.clearMoney();
+    }
 
    
 

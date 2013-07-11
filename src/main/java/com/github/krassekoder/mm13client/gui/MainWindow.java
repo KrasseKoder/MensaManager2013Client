@@ -144,6 +144,11 @@ public final class MainWindow extends QMainWindow {
     {
         teller.request();
     }
+    //Calls method 'clearMoney()' in "PayWidget" in order to clean the 'Line edit'
+    public void clearMoney()
+    {
+        pay.clearMoney();
+    }
     
     
 
