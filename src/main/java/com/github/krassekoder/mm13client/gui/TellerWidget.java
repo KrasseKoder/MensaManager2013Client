@@ -14,7 +14,6 @@ import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
-import com.trolltech.qt.internal.QtJambiDebugTools;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -156,6 +155,9 @@ public class TellerWidget extends QWidget {
         price.setItem(r, 0, new CustomItem(list.item(row, 0).text()));
         price.setItem(r, 1, new CustomItem(list.item(row, 1).text()));
         price.setItem(r, 2, new CustomItem(list.item(row, 2).text()));
+        value += Double.parseDouble(list.item(row,2).text());
+        updateLabel();
+
     }
 
     //This method refreshes the 'moneylabel' and sets attribute value as text.

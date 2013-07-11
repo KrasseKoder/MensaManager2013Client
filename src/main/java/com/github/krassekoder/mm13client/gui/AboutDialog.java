@@ -12,7 +12,7 @@ import com.trolltech.qt.gui.QWidget;
 /**
  * The "AboutDialog" is integrated in the help-menu and shows some minor
  * information about the developers, Qt, and Qt Jambi.
- * It also indicates the build state... Currently Pre-Alpha.
+ * It also indicates the build state... Currently Alpha.
  */
 public final class AboutDialog extends QDialog {
 

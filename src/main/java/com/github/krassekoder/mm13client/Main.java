@@ -16,7 +16,7 @@ public class Main {
         
 
         QApplication.setApplicationName("MensaManager2013Client");
-        QApplication.setApplicationVersion("Pre-Alpha");
+        QApplication.setApplicationVersion("Alpha");
         QApplication.setOrganizationName("KrasseKoder");
         QApplication.setOrganizationDomain("http://www.github.com/KrasseKoder/");
         QApplication.setWindowIcon(icon = new QIcon("classpath:com/github/krassekoder/windowicon.png"));

@@ -27,7 +27,8 @@ public final class HelpDialog extends QDialog {
         setWindowTitle(tr("Help"));
         vL = new QVBoxLayout(this);
         vL.addWidget(text = new QLabel());
-        text.setText("Wieso? Weshalb? Warum? Wer nicht fragt bleibt dumm!\n\n\n\n\n Please visit the wiki!");
+        text.setText("Wieso? Weshalb? Warum? Wer nicht fragt bleibt dumm!"
+        + "\n\n\n\n\n Please visit the wiki!\n");
         vL.addLayout(hL1 = new QHBoxLayout());
         hL1.addWidget(close = new QPushButton(tr("Close"), this));
         close.clicked.connect(this, "close()");
