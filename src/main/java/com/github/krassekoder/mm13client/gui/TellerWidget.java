@@ -3,7 +3,6 @@ package com.github.krassekoder.mm13client.gui;
 import com.github.krassekoder.mm13client.network.Packet;
 import com.github.krassekoder.mm13client.network.Packet1FoodList;
 import com.trolltech.qt.core.Qt;
-import com.trolltech.qt.gui.QAbstractItemView;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QHeaderView;
 import com.trolltech.qt.gui.QLabel;
@@ -24,6 +23,8 @@ public class TellerWidget extends QWidget {
     private class TripleHeader extends QHeaderView {
         public TripleHeader(Qt.Orientation orientation, QWidget parent) {
             super(orientation, parent);
+            setResizeMode(QHeaderView.ResizeMode.Fixed);
+            setStretchLastSection(true);
         }
 
         @Override
@@ -81,8 +82,6 @@ public class TellerWidget extends QWidget {
         list.verticalHeader().setVisible(false);
         list.setHorizontalHeader(new TripleHeader(Qt.Orientation.Horizontal, list));
         list.setHorizontalHeaderLabels(labels);
-        list.horizontalHeader().setStretchLastSection(true);
-        list.horizontalHeader().setResizeMode(QHeaderView.ResizeMode.Fixed);
 
         qh1.addWidget(qw = new QWidget());
 
@@ -91,7 +90,6 @@ public class TellerWidget extends QWidget {
         price.setHorizontalHeader(new TripleHeader(Qt.Orientation.Horizontal, price));
         price.setHorizontalHeaderLabels(labels);
         price.horizontalHeader().setStretchLastSection(true);
-        price.horizontalHeader().setResizeMode(QHeaderView.ResizeMode.Fixed);
 
         qv2.addLayout(qh3 = new QHBoxLayout());
         qh3.addStretch();
