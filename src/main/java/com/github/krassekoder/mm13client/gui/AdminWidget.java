@@ -1,7 +1,7 @@
 package com.github.krassekoder.mm13client.gui;
 
 import com.github.krassekoder.mm13client.network.Packet;
-import com.github.krassekoder.mm13client.network.Packet2EntryEdit;
+import com.github.krassekoder.mm13client.network.Packet4Admin;
 import com.trolltech.qt.gui.QFormLayout;
 import com.trolltech.qt.gui.QGroupBox;
 import com.trolltech.qt.gui.QHBoxLayout;
@@ -81,7 +81,7 @@ public class AdminWidget extends QWidget
   public void SaveEntry()
   {
         try {
-            Packet2EntryEdit.instance.edit(id.text(), productname.text(), price.text());
+            Packet4Admin.instance.editProduct(id.text(), productname.text(), price.text());
         } catch(Packet.InvalidPacketException ex) {
             Logger.getLogger(AdminWidget.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -89,6 +89,7 @@ public class AdminWidget extends QWidget
       productname.clear();
       id.clear();
       price.clear();
+      MainWindow.instance.showFoodList();
   }
   /**
    * Save NewUser saving to Library missing
@@ -96,6 +97,11 @@ public class AdminWidget extends QWidget
    */
   public void SaveNewUser()
   {
+        try {
+            Packet4Admin.instance.editUser(username.text(), password.text(), rights.text());
+        } catch(Packet.InvalidPacketException ex) {
+            Logger.getLogger(AdminWidget.class.getName()).log(Level.SEVERE, null, ex);
+        }
       System.out.println("User:" + username.text() + " " + password.text() + "(" + rights.text() + ")");
       username.clear();
       password.clear();
