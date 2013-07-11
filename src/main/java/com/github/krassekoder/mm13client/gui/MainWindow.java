@@ -1,6 +1,8 @@
 package com.github.krassekoder.mm13client.gui;
 
 import com.trolltech.qt.gui.QAction;
+import com.trolltech.qt.gui.QApplication;
+import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QMainWindow;
 import com.trolltech.qt.gui.QMenu;
 import com.trolltech.qt.gui.QMenuBar;
@@ -12,7 +14,7 @@ public final class MainWindow extends QMainWindow {
 
     private QMenuBar menu;
     private QMenu toolsMenu, helpMenu;
-    private QAction loginAction, logoutAction, helpAction, aboutAction;
+    private QAction loginAction, logoutAction, quitAction, helpAction, aboutAction;
     private QStatusBar status;
     private QTabWidget tabs;
     private AboutDialog about;
@@ -42,7 +44,6 @@ public final class MainWindow extends QMainWindow {
     private void setupUi() {
         setWindowTitle("MensaManager 2013");
         setMinimumSize(640,400);
-        setMaximumWidth(640);
 
         setupMenus(); //sets up the menu bar as described below.
         setStatusBar(status = new QStatusBar(this));
@@ -53,14 +54,17 @@ public final class MainWindow extends QMainWindow {
         pay.hide();
         admin = new AdminWidget(tabs);
         admin.hide();
-        
 
+
+        tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
+        tabs.setTabIcon(1, new QIcon("classpath:com/github/krassekoder/system-search.png"));
     }
 
     //Switches from "TellerWidget" to "PayWidget"
     public void ChangeToPay()
     {
         tabs.insertTab(0, pay, tr("Pay"));
+        tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
     }
@@ -68,8 +72,9 @@ public final class MainWindow extends QMainWindow {
     //Switches from "PayWidget" to "TellerWidget"
     public void ChangeToTeller()
     {
-       teller.newPurchase();
-       tabs.insertTab(0, teller, tr("Teller"));
+        teller.newPurchase();
+        tabs.insertTab(0, teller, tr("Teller"));
+        tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
     }
@@ -78,58 +83,59 @@ public final class MainWindow extends QMainWindow {
         return teller.giveValue();
     }
 
-    //Unlocks the "AdminWidget"  
+    //Unlocks the "AdminWidget"
     public void unlockAdminWidget() {
         tabs.insertTab(2,admin,tr("Admin"));
+        tabs.setTabIcon(2, new QIcon("classpath:com/github/krassekoder/document-properties.png"));
     }
-    
+
     //Locks the "AdminWidget"
     public void lockAdminWidget() {
         tabs.removeTab(2);
     }
-    
+
     //Enables the option to login
     public void enableLogin() {
         loginAction.setVisible(true);
     }
-    
+
     //Disables the option to login
     public void disableLogin() {
         loginAction.setVisible(false);
     }
-    
+
     //Enables the option to logout
     public void enableLogout() {
         logoutAction.setVisible(true);
     }
-    
+
     //Disables the option to logout
     public void disableLogout() {
         logoutAction.setVisible(false);
     }
-    
+
     //Enables the EscapeMessage
     public void enableEscapeMessage(){
         esc.setVisible(true);
     }
-    
+
     //Disables the EscapeMessage
     public void disableEscapeMessage(){
         esc.setVisible(false);
     }
-    
+
     //Enables the ChangeDialog an sets a new Change
     public void enableChangeDialog(double newchange){
         change.newChange(newchange);
         change.setVisible(true);
-        
+
     }
-    
+
     //Disables the ChangeDialog
     public void disableChangeDialog(){
         change.setVisible(false);
     }
-    
+
     //Opens the AboutDialog
     private void openAbout() {
         if (about == null) {
@@ -137,17 +143,17 @@ public final class MainWindow extends QMainWindow {
         }
         about.show();
     }
-    
+
     //Opens the LoginDialog
     private void openLoginDialog() {
         login.show();
     }
-    
+
     //Opens the HelpDialog
     private void openHelp() {
         help.show();
     }
-    
+
     //The Method for loging out
     private void clickLogout() {
         login.logout();
@@ -167,10 +173,10 @@ public final class MainWindow extends QMainWindow {
     {
         pay.clearMoney();
     }
-    
-    
 
-    
+
+
+
 /**
  *  This method sets up the menus 'Tools' and 'Help' as a menu bar on the
  *  upper side of the window.
@@ -180,15 +186,22 @@ public final class MainWindow extends QMainWindow {
 
         menu.addMenu(toolsMenu = new QMenu(tr("&Tools"), menu));
         toolsMenu.addAction(loginAction = new QAction(tr("&Login..."), toolsMenu));
+        loginAction.setIcon(new QIcon("classpath:com/github/krassekoder/network-idle.png"));
         loginAction.triggered.connect(this, "openLoginDialog()");
         toolsMenu.addAction(logoutAction = new QAction(tr("Logout..."), toolsMenu));
+        logoutAction.setIcon(new QIcon("classpath:com/github/krassekoder/network-offline.png"));
         logoutAction.setVisible(false);
         logoutAction.triggered.connect(this, "clickLogout()");
+        toolsMenu.addAction(quitAction = new QAction(tr("Quit"), toolsMenu));
+        quitAction.setIcon(new QIcon("classpath:com/github/krassekoder/system-log-out.png"));
+        quitAction.triggered.connect(QApplication.instance(), "quit()");
 
         menu.addMenu(helpMenu = new QMenu(tr("&Help"), menu));
         helpMenu.addAction(helpAction = new QAction(tr("&Help..."), helpMenu));
+        helpAction.setIcon(new QIcon("classpath:com/github/krassekoder/help-browser.png"));
         helpAction.triggered.connect(this, "openHelp()");
         helpMenu.addAction(aboutAction = new QAction(tr("&About..."), helpMenu));
+        aboutAction.setIcon(new QIcon("classpath:com/github/krassekoder/text-html.png"));
         aboutAction.triggered.connect(this, "openAbout()");
     }
 }

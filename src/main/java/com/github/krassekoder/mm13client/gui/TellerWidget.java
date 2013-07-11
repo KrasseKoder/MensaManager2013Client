@@ -5,6 +5,7 @@ import com.github.krassekoder.mm13client.network.Packet1FoodList;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QHeaderView;
+import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QPushButton;
@@ -62,7 +63,7 @@ public class TellerWidget extends QWidget {
         setupUi();
 
     }
-    
+
     //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
     private void setupUi() {
         setLayout(qv1 = new QVBoxLayout());
@@ -72,6 +73,7 @@ public class TellerWidget extends QWidget {
         qh2.addWidget(ql2 = new QLabel(tr("Product:"), this));
         qh2.addWidget(product = new QLineEdit(this));
         qv1.addWidget(pay = new QPushButton(tr("&Continue to Pay..."), this));
+        pay.setIcon(new QIcon("classpath:com/github/krassekoder/go-next.png"));
         qv2.addLayout(qh4 = new QHBoxLayout());
 
         qh4.addWidget(list = new QTableWidget(0, 3));
@@ -99,7 +101,7 @@ public class TellerWidget extends QWidget {
         product.returnPressed.connect(this, "moveFoodItem()");
 
     }
-    
+
     //This method calls 'ChangeToPay()' in "MainWindow".
     private void GoToPay() {
         MainWindow.instance.ChangeToPay();
@@ -140,24 +142,24 @@ public class TellerWidget extends QWidget {
         updateLabel();
         product.selectAll();
     }
-    
+
     //This method refreshes the 'moneylabel' and sets attribute value as text.
     private void updateLabel() {
         pLabel.setText(String.format(tr("%1$.2f$"), value));
     }
-    
+
     //This method resets the value attribute.
     public void resetValue(){
         value = 0.00;
         updateLabel();
     }
-    
+
     //This method returns the attribute value.
     public double giveValue()
     {
         return value;
     }
-    
+
     //This method calls every method necessary to accomplish a new purchase.
     public void newPurchase()
     {
