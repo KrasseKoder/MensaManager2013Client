@@ -10,7 +10,7 @@ import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
 /**
- * The "AboutDialog" is integrated in the help-menu and shows some minor 
+ * The "AboutDialog" is integrated in the help-menu and shows some minor
  * information about the developers, Qt, and Qt Jambi.
  * It also indicates the build state... Currently Pre-Alpha.
  */
@@ -26,7 +26,7 @@ public final class AboutDialog extends QDialog {
         setupUi();
     }
     //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
-    private void setupUi() { 
+    private void setupUi() {
         setWindowTitle(tr("About MensaManager"));
 
         vL = new QVBoxLayout(this);
@@ -34,6 +34,7 @@ public final class AboutDialog extends QDialog {
         vL.addLayout(hL2 = new QHBoxLayout());
 
         hL1.addWidget(logo = new QLabel());
+        logo.setPixmap(QApplication.windowIcon().pixmap(128));
         hL1.addWidget(text = new QLabel(generateHtml()));
         text.linkActivated.connect(this, "link(String)");
         hL2.addStretch();

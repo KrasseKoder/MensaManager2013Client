@@ -41,7 +41,6 @@ public final class MainWindow extends QMainWindow {
     private void setupUi() {
         setWindowTitle("MensaManager 2013");
         setMinimumSize(640,400);
-        setMaximumWidth(640);
 
         setupMenus(); //sets up the menu bar as described below.
         setStatusBar(status = new QStatusBar(this));
@@ -52,7 +51,7 @@ public final class MainWindow extends QMainWindow {
         pay.hide();
         admin = new AdminWidget(tabs);
         admin.hide();
-        
+
 
     }
 
@@ -77,7 +76,7 @@ public final class MainWindow extends QMainWindow {
         return teller.giveValue();
     }
 
-    //Unlocks the "AdminWidget"  
+    //Unlocks the "AdminWidget"
     public void unlockAdminWidget() {
         tabs.insertTab(2,admin,tr("Admin"));
     }
@@ -113,7 +112,7 @@ public final class MainWindow extends QMainWindow {
     public void enableChangeDialog(double newchange){
         change.newChange(newchange);
         change.setVisible(true);
-        
+
     }
     //Disables the ChangeDialog
     public void disableChangeDialog(){
@@ -144,10 +143,10 @@ public final class MainWindow extends QMainWindow {
     {
         teller.request();
     }
-    
-    
 
-    
+
+
+
 /**
  *  This method sets up the menus 'Tools' and 'Help' as a menu bar on the
  *  upper side of the window.
@@ -167,5 +166,5 @@ public final class MainWindow extends QMainWindow {
         aboutAction.triggered.connect(this, "openAbout()");
     }
 
-   
+
 }
