@@ -14,6 +14,7 @@ import com.trolltech.qt.gui.QTableWidget;
 import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+import com.trolltech.qt.internal.QtJambiDebugTools;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -40,6 +41,13 @@ public class TellerWidget extends QWidget {
             resizeSection(0, firstSize);
             resizeSection(1, halfSize);
             resizeSection(2, halfSize);
+        }
+    }
+
+    private class CustomItem extends QTableWidgetItem {
+        public CustomItem(String text) {
+            super(text);
+            setFlags(Qt.ItemFlag.ItemIsEnabled);
         }
     }
 
@@ -100,6 +108,8 @@ public class TellerWidget extends QWidget {
         product.textEdited.connect(this, "request()");
         product.returnPressed.connect(this, "moveFoodItem()");
 
+        list.cellDoubleClicked.connect(this, "copyRow(int)");
+
     }
 
     //This method calls 'ChangeToPay()' in "MainWindow".
@@ -121,9 +131,9 @@ public class TellerWidget extends QWidget {
         for(Packet1FoodList.FoodItem i : items) {
             int row = list.rowCount();
             list.insertRow(row);
-            list.setItem(row, 0, new QTableWidgetItem(i.id));
-            list.setItem(row, 1, new QTableWidgetItem(i.name));
-            list.setItem(row, 2, new QTableWidgetItem(i.price));
+            list.setItem(row, 0, new CustomItem(i.id));
+            list.setItem(row, 1, new CustomItem(i.name));
+            list.setItem(row, 2, new CustomItem(i.price));
         }
 
         ((TripleHeader)list.horizontalHeader()).adaptSections();
@@ -132,15 +142,20 @@ public class TellerWidget extends QWidget {
     private void moveFoodItem() {
         if(list.rowCount() < 1)
             return;
-        int row = price.rowCount();
-        price.insertRow(row);
-        price.setItem(row, 0, new QTableWidgetItem(list.item(0, 0).text()));
-        price.setItem(row, 1, new QTableWidgetItem(list.item(0, 1).text()));
-        price.setItem(row, 2, new QTableWidgetItem(list.item(0, 2).text()));
+
+        copyRow(0);
 
         value += Double.parseDouble(list.item(0,2).text());
         updateLabel();
         product.selectAll();
+    }
+
+    private void copyRow(int row) {
+        int r = price.rowCount();
+        price.insertRow(r);
+        price.setItem(r, 0, new CustomItem(list.item(row, 0).text()));
+        price.setItem(r, 1, new CustomItem(list.item(row, 1).text()));
+        price.setItem(r, 2, new CustomItem(list.item(row, 2).text()));
     }
 
     //This method refreshes the 'moneylabel' and sets attribute value as text.
