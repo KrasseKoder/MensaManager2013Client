@@ -4,6 +4,7 @@ import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
+import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTextBrowser;
 import com.trolltech.qt.gui.QVBoxLayout;
@@ -69,7 +70,11 @@ public class PayWidget extends QWidget {
 
      //Enables the EscapeMessage
      private void EscapeMessage(){
-       MainWindow.instance.enableEscapeMessage();
+       if(QMessageBox.question(this, tr("Cancel order"), tr("Do you really want to cancel the order?"),
+                             new QMessageBox.StandardButtons(QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No))
+                == QMessageBox.StandardButton.Yes) {
+            MainWindow.instance.ChangeToTeller();
+        }
      }
 
      //Saves the given Money in moneySafe

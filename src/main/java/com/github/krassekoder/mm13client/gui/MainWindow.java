@@ -20,7 +20,6 @@ public final class MainWindow extends QMainWindow {
     private AboutDialog about;
     private HelpDialog help;
     private LoginDialog login;
-    private EscapeMessage esc;
     private PayWidget pay;
     private TellerWidget teller;
     private AdminWidget admin;
@@ -36,7 +35,6 @@ public final class MainWindow extends QMainWindow {
         setupUi();
 
         login = new LoginDialog(this);
-        esc = new EscapeMessage(this);
         change = new ChangeDialog(this);
         help = new HelpDialog(this);
     }
@@ -112,16 +110,6 @@ public final class MainWindow extends QMainWindow {
     //Disables the option to logout
     public void disableLogout() {
         logoutAction.setVisible(false);
-    }
-
-    //Enables the EscapeMessage
-    public void enableEscapeMessage(){
-        esc.setVisible(true);
-    }
-
-    //Disables the EscapeMessage
-    public void disableEscapeMessage(){
-        esc.setVisible(false);
     }
 
     //Enables the ChangeDialog an sets a new Change
