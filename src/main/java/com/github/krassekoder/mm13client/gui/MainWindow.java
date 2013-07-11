@@ -12,11 +12,11 @@ public final class MainWindow extends QMainWindow {
 
     private QMenuBar menu;
     private QMenu toolsMenu, helpMenu;
-    private QAction loginAction, logoutAction;
-    private QAction aboutAction;
+    private QAction loginAction, logoutAction, helpAction, aboutAction;
     private QStatusBar status;
     private QTabWidget tabs;
     private AboutDialog about;
+    private HelpDialog help;
     private LoginDialog login;
     private EscapeMessage esc;
     private PayWidget pay;
@@ -36,11 +36,13 @@ public final class MainWindow extends QMainWindow {
         login = new LoginDialog(this);
         esc = new EscapeMessage(this);
         change = new ChangeDialog(this);
+        help = new HelpDialog(this);
     }
     // This method sets up the User Interface of the main window including menu bar and tabs.
     private void setupUi() {
         setWindowTitle("MensaManager 2013");
         setMinimumSize(640,400);
+        setMaximumWidth(640);
 
         setupMenus(); //sets up the menu bar as described below.
         setStatusBar(status = new QStatusBar(this));
@@ -51,7 +53,7 @@ public final class MainWindow extends QMainWindow {
         pay.hide();
         admin = new AdminWidget(tabs);
         admin.hide();
-
+        
 
     }
 
@@ -76,48 +78,58 @@ public final class MainWindow extends QMainWindow {
         return teller.giveValue();
     }
 
-    //Unlocks the "AdminWidget"
+    //Unlocks the "AdminWidget"  
     public void unlockAdminWidget() {
         tabs.insertTab(2,admin,tr("Admin"));
     }
+    
     //Locks the "AdminWidget"
     public void lockAdminWidget() {
         tabs.removeTab(2);
     }
+    
     //Enables the option to login
     public void enableLogin() {
         loginAction.setVisible(true);
     }
+    
     //Disables the option to login
     public void disableLogin() {
         loginAction.setVisible(false);
     }
+    
     //Enables the option to logout
     public void enableLogout() {
         logoutAction.setVisible(true);
     }
+    
     //Disables the option to logout
     public void disableLogout() {
         logoutAction.setVisible(false);
     }
+    
     //Enables the EscapeMessage
     public void enableEscapeMessage(){
         esc.setVisible(true);
     }
+    
     //Disables the EscapeMessage
     public void disableEscapeMessage(){
         esc.setVisible(false);
     }
+    
     //Enables the ChangeDialog an sets a new Change
     public void enableChangeDialog(double newchange){
         change.newChange(newchange);
         change.setVisible(true);
-
+        
     }
+    
     //Disables the ChangeDialog
     public void disableChangeDialog(){
         change.setVisible(false);
     }
+    
     //Opens the AboutDialog
     private void openAbout() {
         if (about == null) {
@@ -125,10 +137,17 @@ public final class MainWindow extends QMainWindow {
         }
         about.show();
     }
+    
     //Opens the LoginDialog
     private void openLoginDialog() {
         login.show();
     }
+    
+    //Opens the HelpDialog
+    private void openHelp() {
+        help.show();
+    }
+    
     //The Method for loging out
     private void clickLogout() {
         login.logout();
@@ -143,10 +162,15 @@ public final class MainWindow extends QMainWindow {
     {
         teller.request();
     }
+    //Calls method 'clearMoney()' in "PayWidget" in order to clean the 'Line edit'
+    public void clearMoney()
+    {
+        pay.clearMoney();
+    }
+    
+    
 
-
-
-
+    
 /**
  *  This method sets up the menus 'Tools' and 'Help' as a menu bar on the
  *  upper side of the window.
@@ -162,9 +186,9 @@ public final class MainWindow extends QMainWindow {
         logoutAction.triggered.connect(this, "clickLogout()");
 
         menu.addMenu(helpMenu = new QMenu(tr("&Help"), menu));
+        helpMenu.addAction(helpAction = new QAction(tr("&Help..."), helpMenu));
+        helpAction.triggered.connect(this, "openHelp()");
         helpMenu.addAction(aboutAction = new QAction(tr("&About..."), helpMenu));
         aboutAction.triggered.connect(this, "openAbout()");
     }
-
-
 }

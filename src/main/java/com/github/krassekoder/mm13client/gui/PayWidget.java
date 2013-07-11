@@ -72,6 +72,7 @@ public class PayWidget extends QWidget {
      public void getGivenMoney(){
          moneySafe= money.text();
      }
+     
      //Calculates the Change
      private void getChange(){
         double speicher1;
@@ -84,5 +85,11 @@ public class PayWidget extends QWidget {
      {
          getChange();
          return change;
+     }
+     
+     //clears the money 'LineEdit'
+     public void clearMoney()
+     {
+         money.clear();
      }
 }

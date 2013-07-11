@@ -62,8 +62,8 @@ public class TellerWidget extends QWidget {
         setupUi();
 
     }
+    
     //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
-
     private void setupUi() {
         setLayout(qv1 = new QVBoxLayout());
         qv1.addLayout(qh1 = new QHBoxLayout());
@@ -99,9 +99,8 @@ public class TellerWidget extends QWidget {
         product.returnPressed.connect(this, "moveFoodItem()");
 
     }
-
-
-
+    
+    //This method calls 'ChangeToPay()' in "MainWindow".
     private void GoToPay() {
         MainWindow.instance.ChangeToPay();
     }
@@ -141,21 +140,25 @@ public class TellerWidget extends QWidget {
         updateLabel();
         product.selectAll();
     }
-
+    
+    //This method refreshes the 'moneylabel' and sets attribute value as text.
     private void updateLabel() {
         pLabel.setText(String.format(tr("%1$.2f$"), value));
     }
-
+    
+    //This method resets the value attribute.
     public void resetValue(){
         value = 0.00;
         updateLabel();
     }
-
+    
+    //This method returns the attribute value.
     public double giveValue()
     {
         return value;
     }
-
+    
+    //This method calls every method necessary to accomplish a new purchase.
     public void newPurchase()
     {
        resetValue();

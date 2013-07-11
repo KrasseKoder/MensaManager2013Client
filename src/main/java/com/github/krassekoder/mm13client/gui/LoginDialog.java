@@ -42,7 +42,6 @@ public class LoginDialog extends QDialog{
      */
     public LoginDialog(QWidget qw) {
         super(qw);
-
         setupUi();
         load();
         QApplication.instance().aboutToQuit.connect(this, "finish()");
