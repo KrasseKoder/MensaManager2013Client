@@ -72,6 +72,7 @@ public class PayWidget extends QWidget {
      public void getGivenMoney(){
          moneySafe= money.text();
      }
+     
      //Calculates the Change
      private void getChange(){
         double speicher1;
