@@ -18,11 +18,11 @@ import com.trolltech.qt.gui.QWidget;
 public class PayWidget extends QWidget {
 
     private QTextBrowser view;
-    private QHBoxLayout hLa1,hLa2;
-    private QPushButton print,esc,pay;
+    private QHBoxLayout hLa1,hLa2,hLa3,hLa4;
+    private QPushButton print,esc,pay,creditcard,voucher,plasticcard, test;
     private QLineEdit money;
     private QVBoxLayout vLa1;
-    private QLabel mLabel;
+    private QLabel mLabel, pLabel;
     public double change;
     public String moneySafe;
 
@@ -36,6 +36,13 @@ public class PayWidget extends QWidget {
      */
      private void setupUi()  {
         setLayout(vLa1= new QVBoxLayout());
+        vLa1.addWidget(pLabel= new QLabel(tr("Choose a method of payment from the list:")));
+        vLa1.addLayout(hLa3= new QHBoxLayout(this));
+        hLa3.addWidget(creditcard= new QPushButton(tr("Creditcard")));
+        hLa3.addWidget(voucher= new QPushButton(tr("Voucher")));
+        vLa1.addLayout(hLa4= new QHBoxLayout(this));
+        hLa4.addWidget(plasticcard= new QPushButton(tr("Plasticcard")));
+        hLa4.addWidget(test= new QPushButton(tr("Testmethod")));
         vLa1.addWidget(view= new QTextBrowser(this));
         vLa1.addLayout(hLa1= new QHBoxLayout(this));
         hLa1.addWidget(mLabel= new QLabel(tr("&Money:"),this));
