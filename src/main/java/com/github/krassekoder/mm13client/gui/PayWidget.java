@@ -1,14 +1,20 @@
 package com.github.krassekoder.mm13client.gui;
 
+import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.QHBoxLayout;
+import com.trolltech.qt.gui.QHeaderView;
 import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
+import com.trolltech.qt.gui.QResizeEvent;
+import com.trolltech.qt.gui.QTableWidget;
+import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QTextBrowser;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+import java.util.ArrayList;
 
 /**
  * The "PayWidget" offers various non-cash payment options and also conventional
@@ -17,14 +23,44 @@ import com.trolltech.qt.gui.QWidget;
  */
 public class PayWidget extends QWidget {
 
+    private class TripleHeader extends QHeaderView {
+        public TripleHeader(Qt.Orientation orientation, QWidget parent) {
+            super(orientation, parent);
+            setResizeMode(QHeaderView.ResizeMode.Fixed);
+            setStretchLastSection(true);
+        }
+
+        @Override
+        protected void resizeEvent(QResizeEvent qre) {
+            super.resizeEvent(qre);
+            adaptSections();
+        }
+
+        public void adaptSections() {
+            int firstSize = sectionSizeHint(0);
+            int halfSize = (width() - firstSize) / 2;
+            resizeSection(0, firstSize);
+            resizeSection(1, halfSize);
+            resizeSection(2, halfSize);
+        }
+    }
+
+    private class CustomItem extends QTableWidgetItem {
+        public CustomItem(String text) {
+            super(text);
+            setFlags(Qt.ItemFlag.ItemIsEnabled);
+        }
+    }
     private QTextBrowser view;
-    private QHBoxLayout hLa1,hLa2,hLa3,hLa4;
+    private QHBoxLayout hLa1,hLa2,hLa3,hLa4,hLa5,hLa6;
     private QPushButton print,esc,pay,creditcard,voucher,plasticcard, test;
     private QLineEdit money;
-    private QVBoxLayout vLa1;
+    private QVBoxLayout vLa1,vLa2;
     private QLabel mLabel, pLabel;
     public double change;
     public String moneySafe;
+    private QTableWidget list;
+    private QLabel amount;
 
     public PayWidget(QWidget qw) {
         super(qw);
@@ -36,14 +72,25 @@ public class PayWidget extends QWidget {
      */
      private void setupUi()  {
         setLayout(vLa1= new QVBoxLayout());
-        vLa1.addWidget(pLabel= new QLabel(tr("Choose a method of payment from the list:")));
-        vLa1.addLayout(hLa3= new QHBoxLayout(this));
+        vLa1.addLayout(hLa5 = new QHBoxLayout(this));
+        hLa5.addWidget(list = new QTableWidget(0, 3));
+        ArrayList<String> labels = new ArrayList<String>(3);
+        labels.add(tr("Quantity"));
+        labels.add(tr("Name"));
+        labels.add(tr("Price"));
+        list.verticalHeader().setVisible(false);
+        list.setHorizontalHeader(new PayWidget.TripleHeader(Qt.Orientation.Horizontal, list));
+        list.setHorizontalHeaderLabels(labels);
+        hLa5.addLayout(vLa2 = new QVBoxLayout(this));
+        vLa2.addWidget(pLabel= new QLabel(tr("Choose a method of payment from the list:")));
+        vLa2.addLayout(hLa3= new QHBoxLayout(this));
         hLa3.addWidget(creditcard= new QPushButton(tr("Creditcard")));
         hLa3.addWidget(voucher= new QPushButton(tr("Voucher")));
-        vLa1.addLayout(hLa4= new QHBoxLayout(this));
+        vLa2.addLayout(hLa4= new QHBoxLayout(this));
         hLa4.addWidget(plasticcard= new QPushButton(tr("Plasticcard")));
         hLa4.addWidget(test= new QPushButton(tr("Testmethod")));
-        vLa1.addWidget(view= new QTextBrowser(this));
+        vLa1.addLayout(hLa6= new QHBoxLayout(this));
+        hLa6.addWidget(amount = new QLabel(tr("Price: 0.00$")));
         vLa1.addLayout(hLa1= new QHBoxLayout(this));
         hLa1.addWidget(mLabel= new QLabel(tr("&Money:"),this));
         hLa1.addWidget(money= new QLineEdit(this));
@@ -66,7 +113,10 @@ public class PayWidget extends QWidget {
       * order to change from the Pay-tab to the Teller-tab when 'Pay' or 'Print'
       * is pressed.
       */
-
+     public void printPrice()
+     {
+         amount.setText("Price: "+Double.toString(MainWindow.instance.giveValue())+"$");
+     }
      //Method to enable the ChangeDialog
      private void enableChangeDialog(){
          if(money.hasAcceptableInput()&&money.isModified())

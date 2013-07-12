@@ -84,7 +84,7 @@ public class AdminWidget extends QWidget
    * Empty name will delete entry
    */
   public void SaveEntry()
-  {
+  {   price.setSuffix("");
       if(productname.text().isEmpty()) {
           QMessageBox.information(this, tr("Invalid Product"), tr("Productname must not be empty."));
           return;
@@ -99,6 +99,7 @@ public class AdminWidget extends QWidget
       id.clear();
       price.setValue(0);
       MainWindow.instance.showFoodList();
+      price.setSuffix(tr("$"));
   }
   /**
    * Save NewUser saving to Library missing

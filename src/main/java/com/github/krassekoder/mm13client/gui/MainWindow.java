@@ -65,6 +65,7 @@ public final class MainWindow extends QMainWindow {
         tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
+        pay.printPrice();
     }
 
     //Switches from "PayWidget" to "TellerWidget"
