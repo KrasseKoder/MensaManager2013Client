@@ -50,6 +50,7 @@ public class TellerWidget extends QWidget {
         }
     }
 
+
     private QTableWidget price, list;
     private QLineEdit product;
     private QPushButton pay;
@@ -88,6 +89,10 @@ public class TellerWidget extends QWidget {
         labels.add(tr("ID"));
         labels.add(tr("Name"));
         labels.add(tr("Price"));
+        ArrayList<String> labelsP = new ArrayList<String>(3);
+        labelsP.add(tr("Quantity"));
+        labelsP.add(tr("Name"));
+        labelsP.add(tr("Price"));
         list.verticalHeader().setVisible(false);
         list.setHorizontalHeader(new TripleHeader(Qt.Orientation.Horizontal, list));
         list.setHorizontalHeaderLabels(labels);
@@ -97,7 +102,7 @@ public class TellerWidget extends QWidget {
         qh4.addWidget(price = new QTableWidget(0, 3));
         price.verticalHeader().setVisible(false);
         price.setHorizontalHeader(new TripleHeader(Qt.Orientation.Horizontal, price));
-        price.setHorizontalHeaderLabels(labels);
+        price.setHorizontalHeaderLabels(labelsP);
         price.horizontalHeader().setStretchLastSection(true);
 
         qv2.addLayout(qh3 = new QHBoxLayout());
@@ -143,7 +148,6 @@ public class TellerWidget extends QWidget {
             return;
 
         copyRow(0);
-
         value += Double.parseDouble(list.item(0,2).text());
         updateLabel();
         product.selectAll();
@@ -151,13 +155,56 @@ public class TellerWidget extends QWidget {
 
     private void copyRow(int row) {
         int r = price.rowCount();
+        if (numberOfItems(list.item(row, 1)).equals("1"))
+        {
         price.insertRow(r);
-        price.setItem(r, 0, new CustomItem(list.item(row, 0).text()));
+        price.setItem(r, 0, new CustomItem("1"));
         price.setItem(r, 1, new CustomItem(list.item(row, 1).text()));
         price.setItem(r, 2, new CustomItem(list.item(row, 2).text()));
+        }
+        else
+        {
+            price.setItem(searchItem(row), 0, new CustomItem(numberOfItems(list.item(row, 1))));
+        }
         value += Double.parseDouble(list.item(row,2).text());
         updateLabel();
 
+    }
+    
+    private int searchItem(int row)
+    {
+        for (int i=0;i<price.rowCount();i++)
+        {
+            if(list.item(row, 1).text().equals(price.item(i, 1).text()))
+            {
+                return i;
+            }
+        }
+        return 0;
+    }
+    
+    private String numberOfItems(QTableWidgetItem item)
+    {
+        int itemNumber=0;
+        
+        for (int i=0;i<price.rowCount();i++)
+        {
+            if (price.item(i, 1).text().equals(item.text()))
+            {
+                itemNumber=Integer.parseInt(price.item(i,0).text())+1;
+            }
+            
+        }
+        if (itemNumber==0)
+        {
+        return "1";
+        }
+        
+        else
+        {
+            return String.valueOf(itemNumber);
+        }
+   
     }
 
     //This method refreshes the 'moneylabel' and sets attribute value as text.
