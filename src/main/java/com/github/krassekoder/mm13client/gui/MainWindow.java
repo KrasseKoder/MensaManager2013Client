@@ -112,7 +112,7 @@ public final class MainWindow extends QMainWindow {
         logoutAction.setVisible(false);
     }
 
-    //Enables the ChangeDialog an sets a new Change
+    //Enables the ChangeDialog and sets a new Change
     public void enableChangeDialog(double newchange){
         change.newChange(newchange);
         change.setVisible(true);
@@ -122,6 +122,12 @@ public final class MainWindow extends QMainWindow {
     //Disables the ChangeDialog
     public void disableChangeDialog(){
         change.setVisible(false);
+    }
+    
+    //returns whether the ChangeDialog is visible or not.
+    public boolean ChangeIsVisible()
+    {
+        return change.isVisible();
     }
 
     //Opens the AboutDialog
