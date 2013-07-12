@@ -24,7 +24,7 @@ public final class MainWindow extends QMainWindow {
     private TellerWidget teller;
     private AdminWidget admin;
     private ChangeDialog change;
-
+    private DataWidget data;
     /**
      * The "MainWindow" is the first window seen by the user and refers to all
      * other menus and widgets including the 'menubar' and the 'tabbar'.
@@ -47,7 +47,7 @@ public final class MainWindow extends QMainWindow {
         setStatusBar(status = new QStatusBar(this));
         setCentralWidget(tabs = new QTabWidget(this));
         tabs.addTab(teller = new TellerWidget(tabs),tr("Teller"));
-        tabs.addTab(new DataWidget(tabs), tr("Data"));
+        tabs.addTab(data = new DataWidget(tabs), tr("Data"));
         pay = new PayWidget(tabs);
         pay.hide();
         admin = new AdminWidget(tabs);
@@ -161,6 +161,11 @@ public final class MainWindow extends QMainWindow {
     public void showFoodList()
     {
         teller.request();
+    }
+    
+    public void showFoodData()
+    {
+        data.request();
     }
     //Calls method 'clearMoney()' in "PayWidget" in order to clean the 'Line edit'
     public void clearMoney()

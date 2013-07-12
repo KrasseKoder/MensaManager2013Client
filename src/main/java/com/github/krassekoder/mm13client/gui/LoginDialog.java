@@ -108,6 +108,7 @@ public class LoginDialog extends QDialog{
                 MainWindow.instance.enableLogout();
                 hide();
                 MainWindow.instance.showFoodList();
+                MainWindow.instance.showFoodData();
                 
             }
             else {
