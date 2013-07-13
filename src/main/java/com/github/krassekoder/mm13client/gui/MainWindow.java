@@ -77,7 +77,7 @@ public final class MainWindow extends QMainWindow {
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
     }
-    //Gives the complete price of an order
+    //Gives the completegiveValue price of an order
     public double giveValue(){
         return teller.giveValue();
     }
@@ -124,7 +124,7 @@ public final class MainWindow extends QMainWindow {
     public void disableChangeDialog(){
         change.setVisible(false);
     }
-    
+
     //returns whether the ChangeDialog is visible or not.
     public boolean ChangeIsVisible()
     {
@@ -163,7 +163,7 @@ public final class MainWindow extends QMainWindow {
     {
         teller.request();
     }
-    
+
     public void showFoodData()
     {
         data.request();

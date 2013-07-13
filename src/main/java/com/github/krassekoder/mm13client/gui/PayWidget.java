@@ -1,6 +1,5 @@
 package com.github.krassekoder.mm13client.gui;
 
-import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QHeaderView;
 import com.trolltech.qt.gui.QIcon;
@@ -8,13 +7,10 @@ import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
-import com.trolltech.qt.gui.QResizeEvent;
 import com.trolltech.qt.gui.QTableWidget;
-import com.trolltech.qt.gui.QTableWidgetItem;
 import com.trolltech.qt.gui.QTextBrowser;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
-import java.util.ArrayList;
 
 /**
  * The "PayWidget" offers various non-cash payment options and also conventional
@@ -23,34 +19,8 @@ import java.util.ArrayList;
  */
 public class PayWidget extends QWidget {
 
-    private class TripleHeader extends QHeaderView {
-        public TripleHeader(Qt.Orientation orientation, QWidget parent) {
-            super(orientation, parent);
-            setResizeMode(QHeaderView.ResizeMode.Fixed);
-            setStretchLastSection(true);
-        }
+    public static PayWidget instance;
 
-        @Override
-        protected void resizeEvent(QResizeEvent qre) {
-            super.resizeEvent(qre);
-            adaptSections();
-        }
-
-        public void adaptSections() {
-            int firstSize = sectionSizeHint(0);
-            int halfSize = (width() - firstSize) / 2;
-            resizeSection(0, firstSize);
-            resizeSection(1, halfSize);
-            resizeSection(2, halfSize);
-        }
-    }
-
-    private class CustomItem extends QTableWidgetItem {
-        public CustomItem(String text) {
-            super(text);
-            setFlags(Qt.ItemFlag.ItemIsEnabled);
-        }
-    }
     private QTextBrowser view;
     private QHBoxLayout hLa1,hLa2,hLa3,hLa4,hLa5,hLa6;
     private QPushButton print,esc,pay,creditcard,voucher,plasticcard, test;
@@ -64,6 +34,7 @@ public class PayWidget extends QWidget {
 
     public PayWidget(QWidget qw) {
         super(qw);
+        instance = this;
         setupUi();
     }
     /**
@@ -73,14 +44,11 @@ public class PayWidget extends QWidget {
      private void setupUi()  {
         setLayout(vLa1= new QVBoxLayout());
         vLa1.addLayout(hLa5 = new QHBoxLayout(this));
-        hLa5.addWidget(list = new QTableWidget(0, 3));
-        ArrayList<String> labels = new ArrayList<String>(3);
-        labels.add(tr("Quantity"));
-        labels.add(tr("Name"));
-        labels.add(tr("Price"));
+        hLa5.addWidget(list = new QTableWidget(0, 1));
         list.verticalHeader().setVisible(false);
-        list.setHorizontalHeader(new PayWidget.TripleHeader(Qt.Orientation.Horizontal, list));
-        list.setHorizontalHeaderLabels(labels);
+        list.verticalHeader().setResizeMode(QHeaderView.ResizeMode.ResizeToContents);
+        list.horizontalHeader().setVisible(false);
+        list.horizontalHeader().setStretchLastSection(true);
         hLa5.addLayout(vLa2 = new QVBoxLayout(this));
         vLa2.addWidget(pLabel= new QLabel(tr("Choose a method of payment from the list:")));
         vLa2.addLayout(hLa3= new QHBoxLayout(this));
@@ -121,18 +89,18 @@ public class PayWidget extends QWidget {
      private void enableChangeDialog(){
          if(money.hasAcceptableInput()&&money.isModified())
          {
-             money.setModified(false);            
+             money.setModified(false);
              getChange();
              MainWindow.instance.enableChangeDialog(change);
              resetChange();
          }
-         
+
          else if(!money.isModified()&&!MainWindow.instance.ChangeIsVisible())
          {
              QMessageBox.information(this, tr("Enter money"), tr("Please type in the amount of money you recieved!"));
              money.setModified(false);
          }
-         
+
         }
 
      //Enables the EscapeMessage
@@ -154,7 +122,7 @@ public class PayWidget extends QWidget {
      {
          change=0;
      }
-     
+
      //Calculates the Change
      private void getChange(){
         double speicher1;
@@ -174,5 +142,22 @@ public class PayWidget extends QWidget {
      public void clearMoney()
      {
          money.clear();
+     }
+
+     /*
+      * Resets the purchase.
+      */
+     /*package*/ void resetList() {
+         while(list.rowCount() > 0)
+             list.removeRow(0);
+     }
+
+     /*
+      * Inserts a copy of the product item in the list.
+      */
+     /*package*/ void insert(TellerWidget.ProductDisplay item) {
+         int row = list.rowCount();
+         list.insertRow(row);
+         list.setCellWidget(row, 0, item.clone(list));
      }
 }
