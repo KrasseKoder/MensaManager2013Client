@@ -48,6 +48,7 @@ public class ChangeDialog extends QDialog{
     //Method to go back to the PayWidget
     private void back(){
     MainWindow.instance.disableChangeDialog();
+    MainWindow.instance.resetMessage();
     }
     
     //Method to confirm the change

@@ -76,6 +76,9 @@ public final class MainWindow extends QMainWindow {
         tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
         tabs.setCurrentIndex(0);
         tabs.removeTab(1);
+        pay.resetChange();
+        pay.clearMoney();
+        pay.resetMoneySafe();
     }
     //Gives the completegiveValue price of an order
     public double giveValue(){
@@ -172,6 +175,11 @@ public final class MainWindow extends QMainWindow {
     public void clearMoney()
     {
         pay.clearMoney();
+    }
+    
+    public void resetMessage()
+    {
+        pay.setMoneyTrue();
     }
 
 

@@ -89,20 +89,29 @@ public class PayWidget extends QWidget {
      private void enableChangeDialog(){
          if(money.hasAcceptableInput()&&money.isModified())
          {
-             money.setModified(false);
+             setMoneyFalse();
              getChange();
              MainWindow.instance.enableChangeDialog(change);
-             resetChange();
          }
 
          else if(!money.isModified()&&!MainWindow.instance.ChangeIsVisible())
          {
              QMessageBox.information(this, tr("Enter money"), tr("Please type in the amount of money you recieved!"));
-             money.setModified(false);
+             setMoneyFalse();
          }
-
+         
         }
 
+     public void setMoneyFalse()
+     {
+         money.setModified(false);
+     }
+     
+     public void setMoneyTrue()
+     {
+         money.setModified(true);
+     }
+     
      //Enables the EscapeMessage
      private void EscapeMessage(){
        if(QMessageBox.question(this, tr("Cancel order"), tr("Do you really want to cancel the order?"),
@@ -118,9 +127,14 @@ public class PayWidget extends QWidget {
      }
 
      //Resets the Change
-     private void resetChange()
+     public void resetChange()
      {
          change=0;
+     }
+     
+     public void resetMoneySafe()
+     {
+         moneySafe=null;
      }
 
      //Calculates the Change
@@ -128,7 +142,6 @@ public class PayWidget extends QWidget {
         double speicher1;
         speicher1 = Double.parseDouble(moneySafe);
         change = speicher1-MainWindow.instance.giveValue();
-        moneySafe=null;
     }
 
      //Returns the Charge
