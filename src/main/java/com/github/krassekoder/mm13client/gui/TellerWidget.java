@@ -235,6 +235,7 @@ public class TellerWidget extends QWidget {
     //This method returns the attribute value.
     public double giveValue()
     {
+        value = Math.round( value * 100d ) / 100d;
         return value;
     }
 
