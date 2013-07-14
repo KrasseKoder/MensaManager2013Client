@@ -30,7 +30,7 @@ public class ChangeDialog extends QDialog{
      */
     private void setupUi() {
         setWindowTitle(tr("Change"));
-        setFixedSize(160,110);
+        setFixedSize(170,110);
         
         setLayout(vLa1 = new QVBoxLayout(this));
         vLa1.addLayout(hLa1 = new QHBoxLayout(this));
@@ -61,7 +61,7 @@ public class ChangeDialog extends QDialog{
     //Method to set a new Change
     public void newChange(double newchange)
     {
-        bch.setText(Double.toString(newchange));
+        bch.setText(Double.toString(newchange)+" $");
     }
     
     public void clearMoney()

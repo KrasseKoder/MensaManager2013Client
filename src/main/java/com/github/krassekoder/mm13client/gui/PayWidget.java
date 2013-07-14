@@ -142,6 +142,7 @@ public class PayWidget extends QWidget {
         double speicher1;
         speicher1 = Double.parseDouble(moneySafe);
         change = speicher1-MainWindow.instance.giveValue();
+        change = Math.round( change * 100d ) / 100d;
     }
 
      //Returns the Charge
@@ -149,6 +150,7 @@ public class PayWidget extends QWidget {
      {
          getChange();
          return change;
+         
      }
 
      //clears the money 'LineEdit'
