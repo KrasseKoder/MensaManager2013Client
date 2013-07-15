@@ -63,7 +63,7 @@ public class ChangeDialog extends QDialog{
     {
         bch.setText(Double.toString(newchange)+" $");
     }
-    
+    //Clears the MoneyLine
     public void clearMoney()
     {
     MainWindow.instance.clearMoney();

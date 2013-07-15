@@ -174,7 +174,7 @@ public class TellerWidget extends QWidget {
             Logger.getLogger(TellerWidget.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    //Method for entering the FoodList
     private void enterFoodList(List<Packet1FoodList.FoodItem> items) {
         while(list.rowCount() > 0)
             list.removeRow(0);
