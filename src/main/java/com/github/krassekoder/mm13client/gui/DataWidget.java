@@ -6,6 +6,7 @@ import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QHeaderView;
 import com.trolltech.qt.gui.QLineEdit;
+import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QResizeEvent;
 import com.trolltech.qt.gui.QTableView;
@@ -99,6 +100,12 @@ public class DataWidget extends QWidget {
     private void showAverage(){
         list.setVisible(false);
         view.setVisible(true);
+        QMessageBox.information(this, tr("Buy MensaManagerPlus"), tr("Please "
+                + "visit the krassekoder-githubpage wiki to purchase the unique "
+                + "MensaManager2013Plus package including hilarious new features "
+                + "to maximize your profit! The first ten visitors get a gratis"
+                + "-key. So be fast!"));
+        
     }
     
     public void request() {
