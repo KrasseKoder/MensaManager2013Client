@@ -6,6 +6,7 @@ import com.trolltech.qt.gui.QDialog;
 import com.trolltech.qt.gui.QDoubleSpinBox;
 import com.trolltech.qt.gui.QFormLayout;
 import com.trolltech.qt.gui.QGroupBox;
+import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QInputDialog;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QLineEdit;
@@ -58,10 +59,11 @@ public class AdminWidget extends QWidget
         fLa2.addRow(IdLabel = new QLabel(tr("Id:"), newEntry), id = new QSpinBox(newEntry));
         id.setRange(0, Integer.MAX_VALUE);
         qv3.addWidget(enter2 = new QPushButton(tr("Enter / Edit"), this));
+        enter2.setIcon(new QIcon("classpath:com/github/krassekoder/save.png"));
 
 
         qv1.addWidget(deleteProduct = new QPushButton(tr("Delete Product..."), this));
-
+        deleteProduct.setIcon(new QIcon("classpath:com/github/krassekoder/delete.png"));
         qv1.addWidget(newUser = new QGroupBox(tr("User"), this));
         newUser.setLayout(qv2 = new QVBoxLayout(newUser));
         qv2.addLayout(fLa1 = new QFormLayout(newUser));
@@ -70,9 +72,9 @@ public class AdminWidget extends QWidget
         fLa1.addRow(rightsLabel = new QLabel(tr("Rights:"), newUser), rights = new QSpinBox(newUser));
         rights.setRange(1, Byte.MAX_VALUE);
         qv2.addWidget(enter1 = new QPushButton(tr("Enter / Edit"), this));
-
+        enter1.setIcon(new QIcon("classpath:com/github/krassekoder/save.png"));
         qv1.addWidget(deleteUser = new QPushButton(tr("Delete User..."), this));
-
+        deleteUser.setIcon(new QIcon("classpath:com/github/krassekoder/delete.png"));
         enter1.clicked.connect(this,"SaveNewUser()");
         enter2.clicked.connect(this,"SaveEntry()");
         deleteProduct.clicked.connect(this,"deleteProduct()");

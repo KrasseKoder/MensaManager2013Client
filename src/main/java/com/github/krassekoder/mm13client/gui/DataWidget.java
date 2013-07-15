@@ -5,6 +5,7 @@ import com.github.krassekoder.mm13client.network.Packet1FoodList;
 import com.trolltech.qt.core.Qt;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QHeaderView;
+import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
@@ -85,9 +86,13 @@ public class DataWidget extends QWidget {
         view.setVisible(false);
         vLa1.addLayout(hLa1= new QHBoxLayout());
         hLa1.addWidget(button1= new QPushButton(tr("Show Data"), this));
+        button1.setIcon(new QIcon("classpath:com/github/krassekoder/data.png"));
         hLa1.addWidget(button2= new QPushButton(tr("Show Average"), this));
+        button1.setIcon(new QIcon("classpath:com/github/krassekoder/data.png"));
+        
         button1.pressed.connect(this,"showData()");
         button2.pressed.connect(this,"showAverage()");
+        
         
         
     }
