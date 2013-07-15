@@ -21,7 +21,6 @@ public class PayWidget extends QWidget {
 
     public static PayWidget instance;
 
-    private QTextBrowser view;
     private QHBoxLayout hLa1,hLa2,hLa3,hLa4,hLa5,hLa6;
     private QPushButton print,esc,pay,creditcard,voucher,plasticcard, test;
     private QLineEdit money;
@@ -50,13 +49,13 @@ public class PayWidget extends QWidget {
         list.horizontalHeader().setVisible(false);
         list.horizontalHeader().setStretchLastSection(true);
         hLa5.addLayout(vLa2 = new QVBoxLayout(this));
-        vLa2.addWidget(pLabel= new QLabel(tr("Choose a method of payment from the list:")));
+        vLa2.addStretch(400);
         vLa2.addLayout(hLa3= new QHBoxLayout(this));
         hLa3.addWidget(creditcard= new QPushButton(tr("Creditcard")));
         hLa3.addWidget(voucher= new QPushButton(tr("Voucher")));
         vLa2.addLayout(hLa4= new QHBoxLayout(this));
         hLa4.addWidget(plasticcard= new QPushButton(tr("Plasticcard")));
-        hLa4.addWidget(test= new QPushButton(tr("Testmethod")));
+        hLa4.addWidget(test= new QPushButton(tr("Deposit")));
         vLa1.addLayout(hLa6= new QHBoxLayout(this));
         hLa6.addWidget(amount = new QLabel(tr("Price: 0.00$")));
         vLa1.addLayout(hLa1= new QHBoxLayout(this));
@@ -74,6 +73,9 @@ public class PayWidget extends QWidget {
         pay.clicked.connect(this,"enableChangeDialog())");
         esc.clicked.connect(this,"EscapeMessage()");
         money.editingFinished.connect(this,"getGivenMoney()");
+        creditcard.clicked.connect(this,"enableCard()");
+        voucher.clicked.connect(this,"enableCard()");
+        plasticcard.clicked.connect(this,"enableCard()");
     }
 
      /**
@@ -175,4 +177,8 @@ public class PayWidget extends QWidget {
          list.insertRow(row);
          list.setCellWidget(row, 0, item.clone(list));
      }
+     
+     public void enableCard(){
+        QMessageBox.information(this, tr("Warning!"), tr("No card reader connected!")); 
+      }
 }
