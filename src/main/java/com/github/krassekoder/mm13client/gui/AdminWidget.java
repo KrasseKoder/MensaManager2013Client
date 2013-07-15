@@ -121,7 +121,7 @@ public class AdminWidget extends QWidget
       password.clear();
       rights.setValue(1);
   }
-
+  //Deletes an User
   private void deleteUser() {
       String name = QInputDialog.getText(this, tr("Delete User"), tr("Username:"));
       if(name.isEmpty())
@@ -132,7 +132,7 @@ public class AdminWidget extends QWidget
             Logger.getLogger(AdminWidget.class.getName()).log(Level.SEVERE, null, ex);
         }
   }
-
+    //Deletes an Product
     private void deleteProduct() {
         QInputDialog d = new QInputDialog(this);
         d.setInputMode(QInputDialog.InputMode.IntInput);

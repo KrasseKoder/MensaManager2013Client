@@ -28,6 +28,7 @@ public class PayWidget extends QWidget {
     private QLabel mLabel, pLabel;
     public double change;
     public String moneySafe;
+    public double giftMoney;
     private QTableWidget list;
     private QLabel amount;
 
@@ -75,8 +76,9 @@ public class PayWidget extends QWidget {
         esc.clicked.connect(this,"EscapeMessage()");
         money.editingFinished.connect(this,"getGivenMoney()");
         creditcard.clicked.connect(this,"enableCard()");
-        voucher.clicked.connect(this,"enableCard()");
         plasticcard.clicked.connect(this,"enableCard()");
+        cash.clicked.connect(this,"enableCard()");
+        voucher.clicked.connect(this,"GiftCard()");
     }
 
      /**
@@ -144,7 +146,7 @@ public class PayWidget extends QWidget {
      private void getChange(){
         double speicher1;
         speicher1 = Double.parseDouble(moneySafe);
-        change = speicher1-MainWindow.instance.giveValue();
+        change = speicher1-MainWindow.instance.giveValue()+giftMoney;
         change = Math.round( change * 100d ) / 100d;
     }
 
@@ -178,8 +180,34 @@ public class PayWidget extends QWidget {
          list.insertRow(row);
          list.setCellWidget(row, 0, item.clone(list));
      }
-     
+     //Shows the NoCardReader Mesage
      public void enableCard(){
         QMessageBox.information(this, tr("Warning!"), tr("No card reader connected!")); 
       }
+     //Resets the giftMoney
+     public void resetGiftMoney(){
+         giftMoney=0;
+     }
+     //Gives back the Money when Gift Card is deducted
+     public String getMoneyforGift(){
+        if(money.hasAcceptableInput()){
+           return money.text();
+     }
+        else{
+            return "";
+        }
+     }
+     //Opens the GiftCard Box   
+     private void GiftCard(){
+       if(QMessageBox.question(this, tr("Add Gift Card"), tr("To add a new Gift Card insert the amount of the Gift in the 'MoneyField'.\n"
+               + "Do you really want to add a "+Double.parseDouble(getMoneyforGift())+"$ Gift Card?"),
+                             new QMessageBox.StandardButtons(QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No))
+                == QMessageBox.StandardButton.Yes) {
+             
+        giftMoney = Double.parseDouble(money.text());
+        double amounttest;
+        amounttest=Math.round( (MainWindow.instance.giveValue()-giftMoney) * 100d ) / 100d;
+        amount.setText("Price: "+Double.toString(amounttest)+"$");
+        }
+     }
 }
