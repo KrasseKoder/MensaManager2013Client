@@ -28,6 +28,7 @@ public class PayWidget extends QWidget {
     private QLabel mLabel, pLabel;
     public double change;
     public String moneySafe;
+    public double giftMoney;
     private QTableWidget list;
     private QLabel amount;
 
@@ -75,8 +76,8 @@ public class PayWidget extends QWidget {
         esc.clicked.connect(this,"EscapeMessage()");
         money.editingFinished.connect(this,"getGivenMoney()");
         creditcard.clicked.connect(this,"enableCard()");
-        voucher.clicked.connect(this,"enableCard()");
         plasticcard.clicked.connect(this,"enableCard()");
+        voucher.clicked.connect(this,"GiftCard()");
     }
 
      /**
@@ -144,7 +145,7 @@ public class PayWidget extends QWidget {
      private void getChange(){
         double speicher1;
         speicher1 = Double.parseDouble(moneySafe);
-        change = speicher1-MainWindow.instance.giveValue();
+        change = speicher1-MainWindow.instance.giveValue()+giftMoney;
         change = Math.round( change * 100d ) / 100d;
     }
 
@@ -182,4 +183,30 @@ public class PayWidget extends QWidget {
      public void enableCard(){
         QMessageBox.information(this, tr("Warning!"), tr("No card reader connected!")); 
       }
+     
+     public void resetGiftMoney(){
+         giftMoney=0;
+     }
+     
+     public String getMoneyforGift(){
+        if(money.hasAcceptableInput()){
+           return money.text();
+     }
+        else{
+            return "";
+        }
+     }
+        
+     private void GiftCard(){
+       if(QMessageBox.question(this, tr("Add Gift Card"), tr("To add a new Gift Card insert the amount of the Gift in the 'MoneyField'.\n"
+               + "Do you really want to add a "+Double.parseDouble(getMoneyforGift())+"$ Gift Card?"),
+                             new QMessageBox.StandardButtons(QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No))
+                == QMessageBox.StandardButton.Yes) {
+             
+        giftMoney = Double.parseDouble(money.text());
+        double amounttest;
+        amounttest=Math.round( (MainWindow.instance.giveValue()-giftMoney) * 100d ) / 100d;
+        amount.setText("Price: "+Double.toString(amounttest)+"$");
+        }
+     }
 }

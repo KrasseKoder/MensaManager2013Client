@@ -79,6 +79,7 @@ public final class MainWindow extends QMainWindow {
         pay.resetChange();
         pay.clearMoney();
         pay.resetMoneySafe();
+        pay.resetGiftMoney();
     }
     //Gives the completegiveValue price of an order
     public double giveValue(){
