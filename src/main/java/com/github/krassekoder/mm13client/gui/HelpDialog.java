@@ -1,7 +1,9 @@
 package com.github.krassekoder.mm13client.gui;
 
 import com.trolltech.qt.gui.QDialog;
+import com.trolltech.qt.gui.QGraphicsView;
 import com.trolltech.qt.gui.QHBoxLayout;
+import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QLabel;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
@@ -26,11 +28,12 @@ public final class HelpDialog extends QDialog {
         private void setupUi() { 
         setWindowTitle(tr("Help"));
         vL = new QVBoxLayout(this);
-        vL.addWidget(text = new QLabel());
+         vL.addWidget(text = new QLabel());
         text.setText("Wieso? Weshalb? Warum? Wer nicht fragt bleibt dumm!"
-        + "\n\n\n\n\n Please visit the wiki!\n");
+        + "\n\n\n Please visit the wiki!\n");
         vL.addLayout(hL1 = new QHBoxLayout());
         hL1.addWidget(close = new QPushButton(tr("Close"), this));
+        close.setIcon(new QIcon("classpath:com/github/krassekoder/troll.png"));
         close.clicked.connect(this, "close()");
         }
 }
