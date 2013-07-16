@@ -88,6 +88,11 @@ public final class MainWindow extends QMainWindow {
         pay.resetMoneySafe();
         pay.resetGiftMoney();
     }
+    
+    public void showTeller()
+    {
+        tabs.setCurrentIndex(tabs.indexOf(teller));
+    }
 
     /*
      * Gives the completegiveValue price of an order.
