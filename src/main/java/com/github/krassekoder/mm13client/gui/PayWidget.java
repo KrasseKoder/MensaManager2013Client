@@ -122,7 +122,7 @@ public class PayWidget extends QWidget {
        if(QMessageBox.question(this, tr("Cancel order"), tr("Do you really want to cancel the order?"),
                              new QMessageBox.StandardButtons(QMessageBox.StandardButton.Yes, QMessageBox.StandardButton.No))
                 == QMessageBox.StandardButton.Yes) {
-            MainWindow.instance.ChangeToTeller();
+            MainWindow.instance.changeToTeller();
         }
      }
 

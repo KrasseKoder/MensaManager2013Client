@@ -21,6 +21,8 @@ import java.util.logging.Logger;
 
 public class TellerWidget extends QWidget {
 
+    private static TellerWidget instance;
+
     private class TripleHeader extends QHeaderView {
 
         public TripleHeader(Qt.Orientation orientation, QWidget parent) {
@@ -114,8 +116,9 @@ public class TellerWidget extends QWidget {
      */
     public TellerWidget(QWidget qw) {
         super(qw);
-        setupUi();
+        instance = this;
 
+        setupUi();
     }
 
     //This method sets up the User Interface including Layouts, Forms, Buttons, etc.
@@ -164,7 +167,7 @@ public class TellerWidget extends QWidget {
         w.resetList();
         for(int i = 0; i < price.rowCount(); i++)
             w.insert((ProductDisplay)price.cellWidget(i, 0));
-        MainWindow.instance.ChangeToPay();
+        MainWindow.instance.changeToPay();
     }
 
     public void request() {
@@ -174,6 +177,11 @@ public class TellerWidget extends QWidget {
             Logger.getLogger(TellerWidget.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    public static void updateView() {
+        instance.request();
+    }
+
     //Method for entering the FoodList
     private void enterFoodList(List<Packet1FoodList.FoodItem> items) {
         while(list.rowCount() > 0)

@@ -104,19 +104,8 @@ public class LoginDialog extends QDialog{
             if(rights > 0) {
                 System.out.println("Logged in as " + username.text());
                 MainWindow.instance.setWindowTitle(MainWindow.instance.windowTitle() + " - " + username.text());
-                if(rights > 1)
-                {
-                    MainWindow.instance.unlockAdminWidget();
-                    MainWindow.instance.unlockVoucherWidget();
-                }
-                MainWindow.instance.disableLogin();
-                MainWindow.instance.enableLogout();
+                MainWindow.instance.login(rights);
                 hide();
-                MainWindow.instance.showFoodList();
-                MainWindow.instance.showFoodData();
-                Packet2Purchase.Purchase p = Packet2Purchase.Purchase.voucherPurchase("6a3bad05-2f1d-4a37-9ddc-e7c224aabe67");
-                p.addItem(4, "4");
-                p.submit();
             }
             else {
                 System.out.println("Failed to log in as " + username.text());

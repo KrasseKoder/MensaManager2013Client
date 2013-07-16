@@ -2,6 +2,7 @@ package com.github.krassekoder.mm13client.gui;
 
 import com.github.krassekoder.mm13client.network.Packet;
 import com.github.krassekoder.mm13client.network.Packet4Admin;
+import com.trolltech.qt.gui.QComboBox;
 import com.trolltech.qt.gui.QDialog;
 import com.trolltech.qt.gui.QDoubleSpinBox;
 import com.trolltech.qt.gui.QFormLayout;
@@ -30,7 +31,8 @@ public class AdminWidget extends QWidget
     private QVBoxLayout qv1, qv2, qv3;
     private QFormLayout fLa1, fLa2;
     private QLineEdit username, password, productname;
-    private QSpinBox rights, id;
+    private QSpinBox id;
+    private QComboBox rights;
     private QDoubleSpinBox price;
     private QLabel name1Label,name2Label,passwordLabel,priceLabel,IdLabel,rightsLabel;
     private QPushButton enter1,enter2, deleteUser, deleteProduct;
@@ -69,8 +71,9 @@ public class AdminWidget extends QWidget
         qv2.addLayout(fLa1 = new QFormLayout(newUser));
         fLa1.addRow(name1Label = new QLabel(tr("Username:"), newUser), username = new QLineEdit(newUser));
         fLa1.addRow(passwordLabel = new QLabel(tr("Password:"), newUser), password = new QLineEdit(newUser));
-        fLa1.addRow(rightsLabel = new QLabel(tr("Rights:"), newUser), rights = new QSpinBox(newUser));
-        rights.setRange(1, Byte.MAX_VALUE);
+        fLa1.addRow(rightsLabel = new QLabel(tr("Rights:"), newUser), rights = new QComboBox(newUser));
+        rights.insertItem(0, tr("Teller"));
+        rights.insertItem(1, tr("Admin"));
         qv2.addWidget(enter1 = new QPushButton(tr("Enter / Edit"), this));
         enter1.setIcon(new QIcon("classpath:com/github/krassekoder/save.png"));
         qv1.addWidget(deleteUser = new QPushButton(tr("Delete User..."), this));
@@ -100,7 +103,7 @@ public class AdminWidget extends QWidget
       productname.clear();
       id.clear();
       price.setValue(0);
-      MainWindow.instance.showFoodList();
+      TellerWidget.updateView();
   }
   /**
    * Save NewUser saving to Library missing
@@ -113,14 +116,14 @@ public class AdminWidget extends QWidget
           return;
       }
         try {
-            Packet4Admin.instance.editUser(username.text(), password.text(), rights.text());
+            Packet4Admin.instance.editUser(username.text(), password.text(), (rights.currentIndex() + 1) + "");
         } catch(Packet.InvalidPacketException ex) {
             Logger.getLogger(AdminWidget.class.getName()).log(Level.SEVERE, null, ex);
         }
-      System.out.println("User:" + username.text() + " " + password.text() + "(" + rights.text() + ")");
+      System.out.println("User:" + username.text() + " " + password.text() + "(" + (rights.currentIndex() + 1) + "" + ")");
       username.clear();
       password.clear();
-      rights.setValue(1);
+      rights.setCurrentIndex(0);
   }
   //Deletes an User
   private void deleteUser() {
@@ -148,6 +151,6 @@ public class AdminWidget extends QWidget
         } catch(Packet.InvalidPacketException ex) {
             Logger.getLogger(AdminWidget.class.getName()).log(Level.SEVERE, null, ex);
         }
-        MainWindow.instance.showFoodList();
+        TellerWidget.updateView();
     }
 }

@@ -54,7 +54,7 @@ public class ChangeDialog extends QDialog{
     //Method to confirm the change
     private void confirm(){
     MainWindow.instance.disableChangeDialog();
-    MainWindow.instance.ChangeToTeller();
+    MainWindow.instance.changeToTeller();
     
     }
     

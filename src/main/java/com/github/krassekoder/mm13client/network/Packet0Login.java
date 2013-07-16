@@ -11,6 +11,8 @@ public class Packet0Login extends Packet{
     public static Packet0Login instance;
     private byte rights;
 
+    public static final int TELLER = 1, ADMIN = 2;
+
     public Packet0Login() {
         instance = this;
     }

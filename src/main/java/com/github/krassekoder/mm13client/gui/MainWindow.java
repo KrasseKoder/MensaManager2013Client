@@ -1,5 +1,6 @@
 package com.github.krassekoder.mm13client.gui;
 
+import com.github.krassekoder.mm13client.network.Packet0Login;
 import com.trolltech.qt.gui.QAction;
 import com.trolltech.qt.gui.QApplication;
 import com.trolltech.qt.gui.QIcon;
@@ -25,7 +26,7 @@ public final class MainWindow extends QMainWindow {
     private ChangeDialog change;
     private DataWidget data;
     private VoucherWidget voucher;
-    
+
     /**
      * The "MainWindow" is the first window seen by the user and refers to all
      * other menus and widgets including the 'menubar' and the 'tabbar'.
@@ -40,7 +41,7 @@ public final class MainWindow extends QMainWindow {
         help = new HelpDialog(this);
     }
     /*
-     * This method sets up the User Interface of the main window including 
+     * This method sets up the User Interface of the main window including
      * menu bar and tabs.
      */
     private void setupUi() {
@@ -49,44 +50,45 @@ public final class MainWindow extends QMainWindow {
         setupMenus(); //sets up the menu bar as described below.
         setStatusBar(status = new QStatusBar(this));
         setCentralWidget(tabs = new QTabWidget(this));
-        tabs.addTab(teller = new TellerWidget(tabs),tr("Teller"));
-        tabs.addTab(data = new DataWidget(tabs), tr("Data"));
+        teller = new TellerWidget(tabs);
         pay = new PayWidget(tabs);
-        pay.hide();
+        voucher = new VoucherWidget(tabs);
+        data = new DataWidget(tabs);
         admin = new AdminWidget(tabs);
-        admin.hide();
-        voucher= new VoucherWidget(tabs);
+
+        teller.hide();
+        pay.hide();
         voucher.hide();
-        
-        tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
-        tabs.setTabIcon(1, new QIcon("classpath:com/github/krassekoder/system-search.png"));
+        data.hide();
+        admin.hide();
     }
 
     /*
      * Switches from "TellerWidget" to "PayWidget"
      */
-    public void ChangeToPay()
-    {
-        tabs.insertTab(0, pay, tr("Pay"));
-        tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
-        tabs.setCurrentIndex(0);
-        tabs.removeTab(1);
+    public void changeToPay() {
+        int index = tabs.indexOf(teller);
+        tabs.removeTab(index);
+        tabs.insertTab(index, pay, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"), tr("Pay"));
+        tabs.setCurrentIndex(index);
         pay.printPrice();
     }
 
-    //Switches from "PayWidget" to "TellerWidget"
-    public void ChangeToTeller()
-    {
+    /**
+     * Switches from "PayWidget" to "TellerWidget"
+     */
+    public void changeToTeller() {
+        int index = tabs.indexOf(pay);
+        tabs.removeTab(index);
+        tabs.insertTab(index, teller, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"), tr("Teller"));
+        tabs.setCurrentIndex(index);
         teller.newPurchase();
-        tabs.insertTab(0, teller, tr("Teller"));
-        tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
-        tabs.setCurrentIndex(0);
-        tabs.removeTab(1);
         pay.resetChange();
         pay.clearMoney();
         pay.resetMoneySafe();
         pay.resetGiftMoney();
     }
+
     /*
      * Gives the completegiveValue price of an order.
      */
@@ -94,42 +96,21 @@ public final class MainWindow extends QMainWindow {
         return teller.giveValue();
     }
 
-    //Unlocks the "AdminWidget"
-    public void unlockAdminWidget() {
-        tabs.insertTab(2,admin,tr("Admin"));
-        tabs.setTabIcon(2, new QIcon("classpath:com/github/krassekoder/document-properties.png"));
-    }
-    
-    //Unlocks the "VoucherWidget"
-    public void unlockVoucherWidget()
-    {
-        tabs.insertTab(3,voucher,tr("Vouchers"));
-        tabs.setTabIcon(3, new QIcon("classpath:com/github/krassekoder/voucher.png"));
-    }
-
-    //Locks the "AdminWidget"
-    public void lockAdminWidget() {
-        tabs.removeTab(2);
-    }
-
-    //Enables the option to login
-    public void enableLogin() {
-        loginAction.setVisible(true);
-    }
-
-    //Disables the option to login
-    public void disableLogin() {
+    public void login(int rights) {
         loginAction.setVisible(false);
-    }
-
-    //Enables the option to logout
-    public void enableLogout() {
         logoutAction.setVisible(true);
-    }
+        data.request();
+        teller.request();
 
-    //Disables the option to logout
-    public void disableLogout() {
-        logoutAction.setVisible(false);
+        if(rights >= Packet0Login.TELLER) {
+            tabs.addTab(teller, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"), tr("Teller"));
+            tabs.addTab(voucher, new QIcon("classpath:com/github/krassekoder/voucher.png"), tr("Vouchers"));
+        }
+        if(rights >= Packet0Login.ADMIN) {
+            tabs.addTab(data, new QIcon("classpath:com/github/krassekoder/system-search.png"), tr("Data"));
+            tabs.addTab(admin, new QIcon("classpath:com/github/krassekoder/document-properties.png"), tr("Admin"));
+        }
+
     }
 
     //Enables the ChangeDialog and sets a new Change
@@ -172,27 +153,18 @@ public final class MainWindow extends QMainWindow {
     private void clickLogout() {
         login.logout();
         setWindowTitle("MensaManager 2013");
-        disableLogout();
-        enableLogin();
-        lockAdminWidget();
+        logoutAction.setVisible(false);
+        loginAction.setVisible(true);
+        tabs.clear();
         System.out.println("Logged out");
     }
-    //Shows the "FoodList"
-    public void showFoodList()
-    {
-        teller.request();
-    }
 
-    public void showFoodData()
-    {
-        data.request();
-    }
     //Calls method 'clearMoney()' in "PayWidget" in order to clean the 'Line edit'
     public void clearMoney()
     {
         pay.clearMoney();
     }
-    
+
     public void resetMessage()
     {
         pay.setMoneyTrue();
