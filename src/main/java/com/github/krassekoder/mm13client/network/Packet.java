@@ -36,6 +36,7 @@ public abstract class Packet {
         new Packet0Login();
         new Packet1FoodList();
         new Packet2Purchase();
+        new Packet3Data();
         new Packet4Admin();
     }
     public static void receive() throws InvalidPacketException, TimeoutException {
