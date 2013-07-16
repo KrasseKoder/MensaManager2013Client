@@ -105,7 +105,10 @@ public class LoginDialog extends QDialog{
                 System.out.println("Logged in as " + username.text());
                 MainWindow.instance.setWindowTitle(MainWindow.instance.windowTitle() + " - " + username.text());
                 if(rights > 1)
+                {
                     MainWindow.instance.unlockAdminWidget();
+                    MainWindow.instance.unlockVoucherWidget();
+                }
                 MainWindow.instance.disableLogin();
                 MainWindow.instance.enableLogout();
                 hide();

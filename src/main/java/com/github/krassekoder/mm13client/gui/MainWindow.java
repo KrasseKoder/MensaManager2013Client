@@ -11,7 +11,6 @@ import com.trolltech.qt.gui.QTabWidget;
 
 public final class MainWindow extends QMainWindow {
     public static MainWindow instance;
-
     private QMenuBar menu;
     private QMenu toolsMenu, helpMenu;
     private QAction loginAction, logoutAction, quitAction, helpAction, aboutAction;
@@ -25,6 +24,8 @@ public final class MainWindow extends QMainWindow {
     private AdminWidget admin;
     private ChangeDialog change;
     private DataWidget data;
+    private VoucherWidget voucher;
+    
     /**
      * The "MainWindow" is the first window seen by the user and refers to all
      * other menus and widgets including the 'menubar' and the 'tabbar'.
@@ -38,11 +39,13 @@ public final class MainWindow extends QMainWindow {
         change = new ChangeDialog(this);
         help = new HelpDialog(this);
     }
-    // This method sets up the User Interface of the main window including menu bar and tabs.
+    /*
+     * This method sets up the User Interface of the main window including 
+     * menu bar and tabs.
+     */
     private void setupUi() {
         setWindowTitle("MensaManager 2013");
         setMinimumSize(640,400);
-
         setupMenus(); //sets up the menu bar as described below.
         setStatusBar(status = new QStatusBar(this));
         setCentralWidget(tabs = new QTabWidget(this));
@@ -52,13 +55,16 @@ public final class MainWindow extends QMainWindow {
         pay.hide();
         admin = new AdminWidget(tabs);
         admin.hide();
-
-
+        voucher= new VoucherWidget(tabs);
+        voucher.hide();
+        
         tabs.setTabIcon(0, new QIcon("classpath:com/github/krassekoder/accessories-calculator.png"));
         tabs.setTabIcon(1, new QIcon("classpath:com/github/krassekoder/system-search.png"));
     }
 
-    //Switches from "TellerWidget" to "PayWidget"
+    /*
+     * Switches from "TellerWidget" to "PayWidget"
+     */
     public void ChangeToPay()
     {
         tabs.insertTab(0, pay, tr("Pay"));
@@ -81,7 +87,9 @@ public final class MainWindow extends QMainWindow {
         pay.resetMoneySafe();
         pay.resetGiftMoney();
     }
-    //Gives the completegiveValue price of an order
+    /*
+     * Gives the completegiveValue price of an order.
+     */
     public double giveValue(){
         return teller.giveValue();
     }
@@ -90,6 +98,13 @@ public final class MainWindow extends QMainWindow {
     public void unlockAdminWidget() {
         tabs.insertTab(2,admin,tr("Admin"));
         tabs.setTabIcon(2, new QIcon("classpath:com/github/krassekoder/document-properties.png"));
+    }
+    
+    //Unlocks the "VoucherWidget"
+    public void unlockVoucherWidget()
+    {
+        tabs.insertTab(3,voucher,tr("Vouchers"));
+        tabs.setTabIcon(3, new QIcon("classpath:com/github/krassekoder/voucher.png"));
     }
 
     //Locks the "AdminWidget"
