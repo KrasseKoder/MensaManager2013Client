@@ -86,13 +86,13 @@ public class AdminWidget extends QWidget
    * Empty name will delete entry
    */
   public void SaveEntry()
-  {   price.setSuffix("");
+  {
       if(productname.text().isEmpty()) {
           QMessageBox.information(this, tr("Invalid Product"), tr("Productname must not be empty."));
           return;
       }
         try {
-            Packet4Admin.instance.editProduct(id.text(), productname.text(), price.text());
+            Packet4Admin.instance.editProduct(id.text(), productname.text(), price.value() + "");
         } catch(Packet.InvalidPacketException ex) {
             Logger.getLogger(AdminWidget.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -101,7 +101,6 @@ public class AdminWidget extends QWidget
       id.clear();
       price.setValue(0);
       MainWindow.instance.showFoodList();
-      price.setSuffix(tr("$"));
   }
   /**
    * Save NewUser saving to Library missing
