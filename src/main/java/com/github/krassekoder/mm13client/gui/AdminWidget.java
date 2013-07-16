@@ -92,7 +92,7 @@ public class AdminWidget extends QWidget
           return;
       }
         try {
-            Packet4Admin.instance.editProduct(id.text(), productname.text(), price.value() + "");
+            Packet4Admin.instance.editProduct(id.text(), productname.text(), String.format("%1$.2f", price.value()));
         } catch(Packet.InvalidPacketException ex) {
             Logger.getLogger(AdminWidget.class.getName()).log(Level.SEVERE, null, ex);
         }
