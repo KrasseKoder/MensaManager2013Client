@@ -1,5 +1,7 @@
 package com.github.krassekoder.mm13client.gui;
 
+import com.github.krassekoder.mm13client.network.Packet;
+import com.github.krassekoder.mm13client.network.Packet2Purchase;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QHeaderView;
 import com.trolltech.qt.gui.QIcon;
@@ -8,7 +10,6 @@ import com.trolltech.qt.gui.QLineEdit;
 import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QTableWidget;
-import com.trolltech.qt.gui.QTextBrowser;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
 
@@ -91,12 +92,17 @@ public class PayWidget extends QWidget {
          amount.setText("Price: " + String.format("%1$.2f", MainWindow.instance.giveValue()));
      }
      //Method to enable the ChangeDialog
-     private void enableChangeDialog(){
+     private void enableChangeDialog() throws Packet.InvalidPacketException{
          if(money.hasAcceptableInput()&&money.isModified())
          {
              setMoneyFalse();
              getChange();
-             MainWindow.instance.enableChangeDialog(change);
+             Packet2Purchase.Purchase p = Packet2Purchase.Purchase.cashPurchase(money.text());
+             for(int i = 0; i < list.rowCount(); i++) {
+                 TellerWidget.ProductDisplay d = (TellerWidget.ProductDisplay)list.cellWidget(i, 0);
+                 p.addItem(d.getCount(), d.getId());
+             }
+             MainWindow.instance.enableChangeDialog(p.submit());
          }
 
          else if(!money.isModified()&&!MainWindow.instance.ChangeIsVisible())
