@@ -68,6 +68,11 @@ public class Packet2Purchase extends Packet{
             items.add(i);
         }
 
+        /**
+         * Submits the purchase to the server.
+         * Negative return value: Invalid voucher.
+         * Positive value: remaining price.
+         */
         public double submit() throws InvalidPacketException {
             return Packet2Purchase.instance.purchase(this);
         }
@@ -101,7 +106,7 @@ public class Packet2Purchase extends Packet{
 
         sendData(data);
 
-        while(socket.bytesAvailable() < 9)
+        while(socket.bytesAvailable() < 9) //double
             socket.waitForReadyRead(10000);
 
         if(socket.read(1).at(0) != 2)

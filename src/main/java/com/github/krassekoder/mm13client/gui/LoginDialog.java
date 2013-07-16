@@ -3,6 +3,8 @@ package com.github.krassekoder.mm13client.gui;
 import com.github.krassekoder.mm13client.network.Connection;
 import com.github.krassekoder.mm13client.network.Packet;
 import com.github.krassekoder.mm13client.network.Packet0Login;
+import com.github.krassekoder.mm13client.network.Packet2Purchase;
+import com.github.krassekoder.mm13client.network.Packet4Admin;
 import com.trolltech.qt.QVariant;
 import com.trolltech.qt.core.QSettings;
 import com.trolltech.qt.gui.QApplication;
@@ -109,7 +111,9 @@ public class LoginDialog extends QDialog{
                 hide();
                 MainWindow.instance.showFoodList();
                 MainWindow.instance.showFoodData();
-                
+                Packet2Purchase.Purchase p = Packet2Purchase.Purchase.voucherPurchase("6a3bad05-2f1d-4a37-9ddc-e7c224aabe67");
+                p.addItem(4, "4");
+                p.submit();
             }
             else {
                 System.out.println("Failed to log in as " + username.text());
@@ -119,7 +123,7 @@ public class LoginDialog extends QDialog{
             Logger.getLogger(LoginDialog.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void logout() {
         rights=0;
         username.clear();
