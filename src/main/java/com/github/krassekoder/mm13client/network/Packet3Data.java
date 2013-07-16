@@ -3,10 +3,8 @@ package com.github.krassekoder.mm13client.network;
 import static com.github.krassekoder.mm13client.network.Packet.socket;
 import com.trolltech.qt.core.QByteArray;
 import com.trolltech.qt.core.QDataStream;
-import com.trolltech.qt.core.QDateTime;
 import com.trolltech.qt.core.QIODevice;
 import com.trolltech.qt.network.QTcpSocket;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
@@ -14,12 +12,12 @@ import java.util.ListIterator;
 public class Packet3Data extends Packet{
 
     public class Sale {
-        double sum;
-        QDateTime date;
+        public double sum;
+        public int time_t;
 
         public Sale(String input) {
             String[] items = input.split("\t");
-            date = QDateTime.fromString(items[0]);
+            time_t = Integer.parseInt(items[0]);
             sum = Double.parseDouble(items[1]);
         }
     }
@@ -57,28 +55,31 @@ public class Packet3Data extends Packet{
     }
 
     private void insertSaleSorted(Sale s, List<Sale> list) {
-        int t = s.date.toTime_t();
+        int t = s.time_t;
 
         ListIterator<Sale> i = list.listIterator();
         while(i.hasNext()) {
-            if(i.next().date.toTime_t() < t)
+            if(i.next().time_t < t) {
                 list.add(i.previousIndex(), s);
+                return;
+            }
         }
+        list.add(s);
     }
 
-    public Sale[] getSales() throws InvalidPacketException {
+    public List<Sale> getSales() throws InvalidPacketException {
         requestData(SALES);
 
         String s = receiveString();
         if(s.isEmpty())
-            return new Sale[0];
+            return new LinkedList<Sale>();
 
         String[] sales = s.split("\n");
         LinkedList<Sale> result = new LinkedList<Sale>();
         for(int i = 0; i < sales.length; i++)
             insertSaleSorted(new Sale(sales[i]), result);
 
-        return result.toArray(new Sale[result.size()]);
+        return result;
     }
 
     @Override

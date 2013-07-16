@@ -99,7 +99,6 @@ public final class MainWindow extends QMainWindow {
     public void login(int rights) {
         loginAction.setVisible(false);
         logoutAction.setVisible(true);
-        data.request();
         teller.request();
 
         if(rights >= Packet0Login.TELLER) {
