@@ -102,7 +102,11 @@ public class PayWidget extends QWidget {
                  TellerWidget.ProductDisplay d = (TellerWidget.ProductDisplay)list.cellWidget(i, 0);
                  p.addItem(d.getCount(), d.getId());
              }
-             MainWindow.instance.enableChangeDialog(p.submit());
+             //MainWindow.instance.enableChangeDialog(p.submit());
+             //TempFix START
+             p.submit();
+             MainWindow.instance.enableChangeDialog(change);
+             //TempFix END
          }
 
          else if(!money.isModified()&&!MainWindow.instance.ChangeIsVisible())
