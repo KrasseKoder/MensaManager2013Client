@@ -40,8 +40,6 @@ public class SalesView extends QTreeWidget {
         int currentDate = -1;
         QTreeWidgetItem currentRoot = null;
 
-        System.out.println(sales);
-
         for(Packet3Data.Sale sale : sales) {
             QDateTime dt = QDateTime.fromTime_t(sale.time_t);
             if(dt.date().toJulianDay() != currentDate) {
@@ -52,7 +50,7 @@ public class SalesView extends QTreeWidget {
 
             QTreeWidgetItem currentItem = new QTreeWidgetItem(currentRoot);
             currentItem.setText(0, dt.time().toString());
-            currentItem.setText(1, String.format("%1$.2f", sale.sum));
+            currentItem.setText(1, String.format(tr("%1$.2f$"), sale.sum));
         }
     }
 }
