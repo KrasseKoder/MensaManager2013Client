@@ -27,6 +27,7 @@ public class SalesView extends QTreeWidget {
     @Override
     protected void showEvent(QShowEvent qse) {
         super.showEvent(qse);
+        clear();
         List<Packet3Data.Sale> sales = null;
         try {
              sales = Packet3Data.instance.getSales();

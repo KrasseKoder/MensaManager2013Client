@@ -1,5 +1,7 @@
 package com.github.krassekoder.mm13client.gui;
 
+import com.github.krassekoder.mm13client.network.Packet;
+import com.github.krassekoder.mm13client.network.Packet4Admin;
 import com.trolltech.qt.gui.QHBoxLayout;
 import com.trolltech.qt.gui.QIcon;
 import com.trolltech.qt.gui.QLabel;
@@ -8,13 +10,15 @@ import com.trolltech.qt.gui.QMessageBox;
 import com.trolltech.qt.gui.QPushButton;
 import com.trolltech.qt.gui.QVBoxLayout;
 import com.trolltech.qt.gui.QWidget;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
- * The "VoucherWidget" allows the teller to create a new voucher with different 
+ * The "VoucherWidget" allows the teller to create a new voucher with different
  * values.
  */
 public class VoucherWidget extends QWidget{
-    
+
     private QVBoxLayout qv1;
     private QHBoxLayout qh1;
     private QPushButton confirm;
@@ -29,15 +33,15 @@ public class VoucherWidget extends QWidget{
     private QHBoxLayout qh4;
     private QPushButton print;
     private QLabel voucher;
-    
-    
+
+
     public VoucherWidget(QWidget qw)
     {
         super(qw);
         setupUi();
     }
-    
-   /* 
+
+   /*
     * This method sets up the User Interface including Layouts, Forms,
     * Buttons, etc.
     */
@@ -60,17 +64,44 @@ public class VoucherWidget extends QWidget{
         print.clicked.connect(this, "printVoucher()");
         confirm.clicked.connect(this, "confirm()");
 
+        valueFive.clicked.connect(this, "getVoucher5()");
+        valueTen.clicked.connect(this, "getVoucher10()");
+        valueTwenty.clicked.connect(this, "getVoucher20()");
+        valueFifty.clicked.connect(this, "getVoucher50()");
     }
-    
-    private void printVoucher()
-    {
+
+    private void requestVoucher(double value) {
+        try {
+            QMessageBox.information(this, tr("New Voucher"), Packet4Admin.instance.addVoucher(value));
+        } catch(Packet.InvalidPacketException ex) {
+            Logger.getLogger(VoucherWidget.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void getVoucher5() {
+        requestVoucher(5);
+    }
+
+    private void getVoucher10() {
+        requestVoucher(10);
+    }
+
+    private void getVoucher20() {
+        requestVoucher(20);
+    }
+
+    private void getVoucher50() {
+        requestVoucher(50);
+    }
+
+    private void printVoucher() {
         QMessageBox.information(this, tr("Connect printer"), tr("There is no printer connected!"));
     }
-    
+
     private void confirm()
     {
         QMessageBox.information(this, tr("Voucher confirmed"), tr("The voucher is now ready to be used"));
         MainWindow.instance.showTeller();
     }
-    
+
 }
